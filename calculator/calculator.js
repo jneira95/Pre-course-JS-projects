@@ -34,3 +34,5 @@ function simpleCalculator(num1, num2) {
     return finalResult;
 }
 console.log(simpleCalculator(2));
+
+//Prueba git
