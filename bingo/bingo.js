@@ -5,13 +5,12 @@ const bingo = () => {
     let userPlaying = false;
     let userPoints = 0;
     let userTurns = 0;
-    let bingo = ["B", "I", "N", "G", "O"];
     let cardBoard = [
-        { RangeOfNumbers: [1, 20], Value: [], MatchLine: false },
-        { RangeOfNumbers: [21, 40], Value: [], MatchLine: false },
-        { RangeOfNumbers: [41, 60], Value: [], MatchLine: false },
-        { RangeOfNumbers: [61, 80], Value: [], MatchLine: false },
-        { RangeOfNumbers: [81, 100], Value: [], MatchLine: false },
+        { RangeOfNumbers: [1, 20], Value: [], MatchLine: false, letter: "B" },
+        { RangeOfNumbers: [21, 40], Value: [], MatchLine: false, letter: "I" },
+        { RangeOfNumbers: [41, 60], Value: [], MatchLine: false, letter: "N" },
+        { RangeOfNumbers: [61, 80], Value: [], MatchLine: false, letter: "G" },
+        { RangeOfNumbers: [81, 100], Value: [], MatchLine: false, letter: "O" },
     ];
 
     const wellcome = () => {
@@ -31,7 +30,7 @@ const bingo = () => {
                secondMenuGame()
                 break;
             case "2":
-                alert("Bienvenido a BINGO GAME! \nEl juego es muy sencillo, ");
+                alert("Bienvenido a BINGO GAME! \nEl juego es muy sencillo, iran saliendo numeros aleatorios de nuestra bola virtual. \nGana quien complete el tablero en la menor cantidad de turnos. \nCompletar la primera linea, resta 5 puntos a tu contador de turnos! \nSe podran visualizar todas las bolas que vayan saliendo a lo largo del juego. \nDicho esto! a JUGAR!");
                 mainMenuGame()
                 break;
             case "3":
@@ -84,6 +83,10 @@ const bingo = () => {
                 else continue;
             }
         }
+    }
+
+    const ballDispenser = () => {
+
     }
 
     const generateRandomNumber = (min, max) => {
