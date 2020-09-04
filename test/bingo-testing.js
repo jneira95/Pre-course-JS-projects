@@ -32,16 +32,6 @@ let line3 = userCardboard[2].Value.map(newAr => newAr)
 let line4 = userCardboard[3].Value.map(newAr => newAr)
 let line5 = userCardboard[4].Value.map(newAr => newAr)
 
-const newDisplay = () => {
-return "hello"
-}
-let counter = []
-for (let z = 1; z <= 100; z++) {
-    counter.push(z)
-}
-console.log(counter);
-
-let testnum = []
 const generateBallDispenser = () => {
     for (let i = 0; i < userCardboard.length; i++) {
         for (let o = userCardboard[i].RangeOfNumbers[0]; o <= userCardboard[i].RangeOfNumbers[1]; o++) {
@@ -53,16 +43,6 @@ const generateBallDispenser = () => {
 generateBallDispenser()
 console.log(ballDispenserNumbers);
 
-
-const ballDispenserTest = () => {
-    let getLetter = generateRandomNumber(0, 4)
-    let getNumber = generateRandomNumber(userCardboard[getLetter].RangeOfNumbers[1], userCardboard[getLetter].RangeOfNumbers[0]);
-    let checkedNumber = userCardboard[getLetter].letter + "-" + getNumber
-
-    if (throwNumbers.indexOf(checkedNumber) === -1) {
-        throwNumbers.push(checkedNumber)
-    } else ballDispenserTest()
-}
 
 
 
