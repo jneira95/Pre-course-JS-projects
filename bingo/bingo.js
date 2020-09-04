@@ -4,13 +4,13 @@ const bingo = () => {
     let userName;
     let userPoints = 0;
     let userTurns = 0;
-    let userCardboard = {
-        B: { RangeNumbers: [1, 20], Value: [] },
-        I: { RangeNumbers: [21, 40], Value: [] },
-        N: { RangeNumbers: [41, 60], Value: [] },
-        G: { RangeNumbers: [61, 80], Value: [] },
-        O: { RangeNumbers: [81, 100], Value: [] },
-    }
+    let userCardboard = [
+        { RangeOfNumbers: [1, 20], Value: [], MatchLine: false },
+        { RangeOfNumbers: [21, 40], Value: [], MatchLine: false },
+        { RangeOfNumbers: [41, 60], Value: [], MatchLine: false },
+        { RangeOfNumbers: [61, 80], Value: [], MatchLine: false },
+        { RangeOfNumbers: [81, 100], Value: [], MatchLine: false },
+    ];
 
     const wellcome = () => {
         do {
@@ -53,21 +53,18 @@ const bingo = () => {
     }
 
     const getNewCardBoard = () => {
-        const arBingoLetters = ["B", "I", "N", "G", "O"]
-        for (let r = 0; r < arBingoLetters.length; r++) {
-            for (let c = 0; c < 5; c++) {
-                let num = randomIntFromInterval(userCardboard[arBingoLetters[r]].RangeNumbers[0], userCardboard[arBingoLetters[r]].RangeNumbers[1])
-                console.log(num);
+        for (let i = 0; i < userCardboard.length; i++) {
+            while (userCardboard[i].Value.length < 5) {
+                let num = generateRandomNumber(userCardboard[i].RangeOfNumbers[1], userCardboard[i].RangeOfNumbers[0]);
+                if (userCardboard[i].Value.indexOf(num) === -1) userCardboard[i].Value.push(num);
+                else continue;
             }
         }
-
-        function randomIntFromInterval(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min);
-        }
-
     }
 
-
+    const generateRandomNumber = (min, max) => {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
 
     wellcome()
 }
