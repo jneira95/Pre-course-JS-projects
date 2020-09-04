@@ -13,6 +13,7 @@ const bingo = () => {
         { RangeOfNumbers: [61, 80], Value: [], MatchLine: false, letter: "G" },
         { RangeOfNumbers: [81, 100], Value: [], MatchLine: false, letter: "O" },
     ];
+    console.log(ballDispenserNumbers);
 
     const wellcome = () => {
         do {
@@ -77,9 +78,9 @@ const bingo = () => {
     }
 
     const generateBallDispenser = () => {
-        for (let i = 0; i < userCardboard.length; i++) {
-            for (let o = userCardboard[i].RangeOfNumbers[0]; o <= userCardboard[i].RangeOfNumbers[1]; o++) {
-                ballDispenserNumbers.push(userCardboard[i].letter + "-" + o)
+        for (let i = 0; i < cardBoard.length; i++) {
+            for (let o = cardBoard[i].RangeOfNumbers[0]; o <= cardBoard[i].RangeOfNumbers[1]; o++) {
+                ballDispenserNumbers.push(cardBoard[i].letter + "-" + o)
             }
         }
     }
@@ -101,7 +102,10 @@ const bingo = () => {
 
     const showCardBoard = () => {
         console.clear()
-        console.log(`\t\t${bingo.join("\t\t")}`);
+        let bingoName = cardBoard.map(function(letter) {
+            return letter.letter;
+        })
+        console.log(`\t\t${bingoName.join("\t\t")}`);
         for (let x = 0; x < 5; x++) {
             console.log(`\t\t${cardBoard[x].Value.join("\t\t")}`);
         }
