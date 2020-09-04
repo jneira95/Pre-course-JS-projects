@@ -2,9 +2,11 @@
 
 const bingo = () => {
     let userName;
+    let userPlaying = false;
     let userPoints = 0;
     let userTurns = 0;
-    let userCardboard = [
+    let bingo = ["B", "I", "N", "G", "O"];
+    let cardBoard = [
         { RangeOfNumbers: [1, 20], Value: [], MatchLine: false },
         { RangeOfNumbers: [21, 40], Value: [], MatchLine: false },
         { RangeOfNumbers: [41, 60], Value: [], MatchLine: false },
@@ -18,63 +20,67 @@ const bingo = () => {
         } while (isFinite(userName) || userName == null);
 
         const startGame = confirm(`Bienvenido ${userName}! \nListo para jugar?`);
-        if (startGame === true) menuGame();
+        if (startGame === true) mainMenuGame();
         else console.log("Vuelve pronto!");
     }
 
-    const menuGame = () => {
-        const userOption = prompt("1- Nuevo Carton \n2- ¿Como jugar? \n3- Salir");
+    const mainMenuGame = () => {
+        const userOption = prompt("1- Comenzar \n2- ¿Como jugar? \n3- Salir");
         switch (userOption) {
-            /* ///////////////////////////////////////////////////// */
             case "1":
-                let z = false;
-                    do {
-                        const userOption1 = prompt("1-Generar nuevo carton! \n2- Vamos a jugar! \nAtras");
-                        z = false
-                        switch (userOption1) {
-                            case "1":
-                                cleanCardboard()
-                                generateNewCardboard();
-                                showCardBoard()
-                                break;
-                            case "2":
-
-                                break;
-                            case "3":
-                                menuGame()
-                                break;
-                            default:
-                                z = true
-                                alert("Introduce una de las opciones disponibles")
-                        }
-                    } while (z);
+               secondMenuGame()
                 break;
-            /* ///////////////////////////////////////////////////// */
             case "2":
-                console.log("Informacion Adicional");
+                alert("Bienvenido a BINGO GAME! \nEl juego es muy sencillo, ");
+                mainMenuGame()
                 break;
-            /* ///////////////////////////////////////////////////// */
             case "3":
-                console.log("Gracias por jugar, vuelve pronto!");
+                console.log(`Gracias por jugar ${userName}, vuelve pronto!`);
                 break;
             default:
-                menuGame();
+                alert("Introduce una de las opciones disponibles")
+                mainMenuGame();
+        }
+    }
+
+    const secondMenuGame = () => {
+        const userOption = prompt("1- Generar nuevo carton! \n2- Vamos a jugar! \n3- Atras");
+        switch (userOption) {
+            case "1":
+                cleanCardboard()
+                generateNewCardboard();
+                showCardBoard()
+                break;
+            case "2":
+                
+                break;
+            case "3":
+                mainMenuGame()
+                break;
+            default:
+                alert("Introduce una de las opciones disponibles")
+                secondMenuGame()
         }
     }
 
     const cleanCardboard = () => {
-      userCardboard[0].Value      
-      userCardboard[1].Value  
-      userCardboard[2].Value  
-      userCardboard[3].Value  
-      userCardboard[4].Value      
+        cardBoard[0].Value = [];
+        cardBoard[0].MatchLine = false;              
+        cardBoard[1].Value = [];
+        cardBoard[1].MatchLine = false;     
+        cardBoard[2].Value = [];
+        cardBoard[2].MatchLine = false;     
+        cardBoard[3].Value = [];
+        cardBoard[3].MatchLine = false;     
+        cardBoard[4].Value = [];
+        cardBoard[4].MatchLine = false;             
     }
 
     const generateNewCardboard = () => {
-        for (let i = 0; i < userCardboard.length; i++) {
-            while (userCardboard[i].Value.length < 5) {
-                let num = generateRandomNumber(userCardboard[i].RangeOfNumbers[1], userCardboard[i].RangeOfNumbers[0]);
-                if (userCardboard[i].Value.indexOf(num) === -1) userCardboard[i].Value.push(num);
+        for (let i = 0; i < cardBoard.length; i++) {
+            while (cardBoard[i].Value.length < 5) {
+                let num = generateRandomNumber(cardBoard[i].RangeOfNumbers[1], cardBoard[i].RangeOfNumbers[0]);
+                if (cardBoard[i].Value.indexOf(num) === -1) cardBoard[i].Value.push(num);
                 else continue;
             }
         }
@@ -85,11 +91,16 @@ const bingo = () => {
     }
 
     const showCardBoard = () => {
-        console.log(`${userCardboard[0].Value.join("\t")}`)
-        console.log(`${userCardboard[1].Value.join("\t")}`)
-        console.log(`${userCardboard[2].Value.join("\t")}`)
-        console.log(`${userCardboard[3].Value.join("\t")}`)
-        console.log(`${userCardboard[4].Value.join("\t")}`)
+        console.clear()
+        console.log(`\t\t${bingo.join("\t\t")}`);
+        for (let x = 0; x < 5; x++) {
+            console.log(`\t\t${cardBoard[x].Value.join("\t\t")}`);
+        }
+        if (userPlaying === false) secondMenuGame();
+    }
+
+    const showCardBoardOnPlay = () => {
+        showCardBoard()
     }
 
     wellcome()
