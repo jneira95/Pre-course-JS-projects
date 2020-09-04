@@ -23,28 +23,38 @@ const bingo = () => {
     }
 
     const menuGame = () => {
-        const userOption = parseInt(prompt("1- Nuevo Carton \n2- ¿Como jugar? \n3- Salir"));
+        const userOption = prompt("1- Nuevo Carton \n2- ¿Como jugar? \n3- Salir");
         switch (userOption) {
-            case 1:
-                let z;
-                while (z === true) {
-                    const userOption1 = parseInt(prompt("1- No me gusta, dame uno nuevo!, \n2- Este SI! Vamos a jugar"));
-                    switch (userOption1) {
-                        case 1:
-                            getNewCardBoard();
-                            break;
-                        case 2:
+            /* ///////////////////////////////////////////////////// */
+            case "1":
+                let z = false;
+                    do {
+                        const userOption1 = prompt("1-Generar nuevo carton! \n2- Vamos a jugar! \nAtras");
+                        z = false
+                        switch (userOption1) {
+                            case "1":
+                                cleanCardboard()
+                                generateNewCardboard();
+                                showCardBoard()
+                                break;
+                            case "2":
 
-                            break;
-                        default:
-                            continue;
-                    }
-                }
+                                break;
+                            case "3":
+                                menuGame()
+                                break;
+                            default:
+                                z = true
+                                alert("Introduce una de las opciones disponibles")
+                        }
+                    } while (z);
                 break;
-            case 2:
-
+            /* ///////////////////////////////////////////////////// */
+            case "2":
+                console.log("Informacion Adicional");
                 break;
-            case 3:
+            /* ///////////////////////////////////////////////////// */
+            case "3":
                 console.log("Gracias por jugar, vuelve pronto!");
                 break;
             default:
@@ -52,7 +62,15 @@ const bingo = () => {
         }
     }
 
-    const getNewCardBoard = () => {
+    const cleanCardboard = () => {
+      userCardboard[0].Value      
+      userCardboard[1].Value  
+      userCardboard[2].Value  
+      userCardboard[3].Value  
+      userCardboard[4].Value      
+    }
+
+    const generateNewCardboard = () => {
         for (let i = 0; i < userCardboard.length; i++) {
             while (userCardboard[i].Value.length < 5) {
                 let num = generateRandomNumber(userCardboard[i].RangeOfNumbers[1], userCardboard[i].RangeOfNumbers[0]);
@@ -66,8 +84,16 @@ const bingo = () => {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
+    const showCardBoard = () => {
+        console.log(`${userCardboard[0].Value.join("\t")}`)
+        console.log(`${userCardboard[1].Value.join("\t")}`)
+        console.log(`${userCardboard[2].Value.join("\t")}`)
+        console.log(`${userCardboard[3].Value.join("\t")}`)
+        console.log(`${userCardboard[4].Value.join("\t")}`)
+    }
+
     wellcome()
 }
 
 
-// bingo();
+// bingo()
