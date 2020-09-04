@@ -5,6 +5,7 @@ const bingo = () => {
     let userPlaying = false;
     let userPoints = 0;
     let userTurns = 0;
+    let ballDispenserNumbers = [];
     let cardBoard = [
         { RangeOfNumbers: [1, 20], Value: [], MatchLine: false, letter: "B" },
         { RangeOfNumbers: [21, 40], Value: [], MatchLine: false, letter: "I" },
@@ -75,6 +76,14 @@ const bingo = () => {
         cardBoard[4].MatchLine = false;             
     }
 
+    const generateBallDispenser = () => {
+        for (let i = 0; i < userCardboard.length; i++) {
+            for (let o = userCardboard[i].RangeOfNumbers[0]; o <= userCardboard[i].RangeOfNumbers[1]; o++) {
+                ballDispenserNumbers.push(userCardboard[i].letter + "-" + o)
+            }
+        }
+    }
+
     const generateNewCardboard = () => {
         for (let i = 0; i < cardBoard.length; i++) {
             while (cardBoard[i].Value.length < 5) {
@@ -85,9 +94,6 @@ const bingo = () => {
         }
     }
 
-    const ballDispenser = () => {
-
-    }
 
     const generateRandomNumber = (min, max) => {
         return Math.floor(Math.random() * (max - min + 1) + min);
@@ -106,7 +112,8 @@ const bingo = () => {
         showCardBoard()
     }
 
-    wellcome()
+    wellcome();
+    generateBallDispenser();
 }
 
 
