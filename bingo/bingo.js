@@ -3,8 +3,8 @@
 const bingo = () => {
     let userName;
     let userPlaying = false;
-    let userPoints = 0;
     let userTurns = 0;
+    let line = "No"
     let newDisplay = [[], [], [], [], []]
     let ballDispenserNumbers = [];
     let cardBoard = [
@@ -29,11 +29,11 @@ const bingo = () => {
         const userOption = prompt("1- Comenzar \n2- ¿Como jugar? \n3- Salir");
         switch (userOption) {
             case "1":
-               secondMenuGame()
+               secondMenuGame();
                 break;
             case "2":
                 alert("Bienvenido a BINGO GAME! \nEl juego es muy sencillo, iran saliendo numeros aleatorios de nuestra bola virtual. \nGana quien complete el tablero en la menor cantidad de turnos. \nCompletar la primera linea, resta 5 puntos a tu contador de turnos! \nSe podran visualizar todas las bolas que vayan saliendo a lo largo del juego. \nDicho esto! a JUGAR!");
-                mainMenuGame()
+                mainMenuGame();
                 break;
             case "3":
                 console.log(`Gracias por jugar ${userName}, vuelve pronto!`);
@@ -71,11 +71,12 @@ const bingo = () => {
             const playingCheck = confirm("Sacar Numero!");
             switch (playingCheck) {
                 case true:
-                    // userTurns++
                     playingTheGame()
                     break;
                 case false:
                     userPlaying = false;
+                    console.clear()
+                    cleanCardBoard()
                     break;
             }
         } while (userPlaying === true);
@@ -83,7 +84,6 @@ const bingo = () => {
     }
 
     const clearStoredData = () => {
-        userPoints = 0;
         newDisplay = [[], [], [], [], []];
     }
 
@@ -119,11 +119,11 @@ const bingo = () => {
     
     const showCardBoard = () => {
         console.clear()
-        let bingoName = cardBoard.map(letter => letter.letter)
+        let bingoName = cardBoard.map(letter => letter.letter);
         console.log(`\t\t|\t${bingoName.join("\t\t")}\t|`);
         for (let x = 0; x < 5; x++) {
             for (let z = 0; z < 5; z++) {
-                newDisplay[z].push(cardBoard[x].Value[z])
+                newDisplay[z].push(cardBoard[x].Value[z]);
             }
         }
         for (let i = 0; i < newDisplay.length; i++) {
@@ -133,13 +133,20 @@ const bingo = () => {
     }
     
     const playingTheGame = () => {
-        clearStoredData()
-        showCardBoard()
-        
+        userTurns = userTurns + 1;
+        let randomBall = generateRandomNumber(0, ballDispenserNumbers.length -1);
+        let matchNumber = ballDispenserNumbers[randomBall].replace(/\D/g, '');
+        clearStoredData();
+        showCardBoard();
+        console.log(matchNumber);
+
+        if (ballDispenserNumbers.length > 0) console.log(`\t\t\tBola N.º: ${ballDispenserNumbers[randomBall]} Turnos: ${userTurns} linea: ${line}`);
+        ballDispenserNumbers.splice(randomBall, 1);
+
     }
     
-    wellcome();
     generateBallDispenser();
+    wellcome();
 }
 
 

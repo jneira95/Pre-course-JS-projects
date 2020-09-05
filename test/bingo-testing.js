@@ -47,9 +47,11 @@ console.log(ballDispenserNumbers);
 
 
 
+let testar = "b-12"
 
+let newar = testar.replace(/\D/g, '')
 
-
+console.log(newar);
 
 
 
