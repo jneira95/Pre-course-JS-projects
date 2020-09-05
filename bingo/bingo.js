@@ -5,6 +5,7 @@ const bingo = () => {
     let userPlaying = false;
     let userPoints = 0;
     let userTurns = 0;
+    let newDisplay = [[], [], [], [], []]
     let ballDispenserNumbers = [];
     let cardBoard = [
         { RangeOfNumbers: [1, 20], Value: [], MatchLine: false, letter: "B" },
@@ -13,7 +14,6 @@ const bingo = () => {
         { RangeOfNumbers: [61, 80], Value: [], MatchLine: false, letter: "G" },
         { RangeOfNumbers: [81, 100], Value: [], MatchLine: false, letter: "O" },
     ];
-    console.log(ballDispenserNumbers);
 
     const wellcome = () => {
         do {
@@ -48,12 +48,12 @@ const bingo = () => {
         const userOption = prompt("1- Generar nuevo carton! \n2- Vamos a jugar! \n3- Atras");
         switch (userOption) {
             case "1":
-                cleanCardboard()
+                clearStoredData(), cleanCardBoard();
                 generateNewCardboard();
                 showCardBoard()
                 break;
             case "2":
-                
+                playingMenuGame()
                 break;
             case "3":
                 mainMenuGame()
@@ -64,58 +64,80 @@ const bingo = () => {
         }
     }
 
-    const cleanCardboard = () => {
-        cardBoard[0].Value = [];
-        cardBoard[0].MatchLine = false;              
-        cardBoard[1].Value = [];
-        cardBoard[1].MatchLine = false;     
-        cardBoard[2].Value = [];
-        cardBoard[2].MatchLine = false;     
-        cardBoard[3].Value = [];
-        cardBoard[3].MatchLine = false;     
-        cardBoard[4].Value = [];
-        cardBoard[4].MatchLine = false;             
+    const playingMenuGame = () => {
+        alert("Listos para jugar! \nPara sacar un numero, simplemente dale a Aceptar en cada turno, \nde lo contrario dale a Cancelar para volver al menu principal")
+        userPlaying = true
+        do {
+            const playingCheck = confirm("Sacar Numero!");
+            switch (playingCheck) {
+                case true:
+                    // userTurns++
+                    playingTheGame()
+                    break;
+                case false:
+                    userPlaying = false;
+                    break;
+            }
+        } while (userPlaying === true);
+        secondMenuGame()
     }
 
-    const generateBallDispenser = () => {
-        for (let i = 0; i < cardBoard.length; i++) {
-            for (let o = cardBoard[i].RangeOfNumbers[0]; o <= cardBoard[i].RangeOfNumbers[1]; o++) {
-                ballDispenserNumbers.push(cardBoard[i].letter + "-" + o)
-            }
+    const clearStoredData = () => {
+        userPoints = 0;
+        newDisplay = [[], [], [], [], []];
+    }
+
+    const cleanCardBoard = () => {
+        for (let x = 0; x < cardBoard.length; x++) {
+            cardBoard[x].Value = [];
+            cardBoard[x].MatchLine = false;
         }
     }
 
+    const generateBallDispenser = () => {
+        for (let x = 0; x < cardBoard.length; x++) {
+            for (let z = cardBoard[x].RangeOfNumbers[0]; z <= cardBoard[x].RangeOfNumbers[1]; z++) {
+                ballDispenserNumbers.push(cardBoard[x].letter + "-" + z)
+            }
+        }
+    }
+    
+    
     const generateNewCardboard = () => {
-        for (let i = 0; i < cardBoard.length; i++) {
-            while (cardBoard[i].Value.length < 5) {
-                let num = generateRandomNumber(cardBoard[i].RangeOfNumbers[1], cardBoard[i].RangeOfNumbers[0]);
-                if (cardBoard[i].Value.indexOf(num) === -1) cardBoard[i].Value.push(num);
+        for (let x = 0; x < cardBoard.length; x++) {
+            while (cardBoard[x].Value.length < 5) {
+                let num = generateRandomNumber(cardBoard[x].RangeOfNumbers[1], cardBoard[x].RangeOfNumbers[0]);
+                if (cardBoard[x].Value.indexOf(num) === -1) cardBoard[x].Value.push(num);
                 else continue;
             }
         }
     }
-
-
+    
     const generateRandomNumber = (min, max) => {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
-
+    
     const showCardBoard = () => {
         console.clear()
-        let bingoName = cardBoard.map(function(letter) {
-            return letter.letter;
-        })
-        console.log(`\t\t${bingoName.join("\t\t")}`);
+        let bingoName = cardBoard.map(letter => letter.letter)
+        console.log(`\t\t|\t${bingoName.join("\t\t")}\t|`);
         for (let x = 0; x < 5; x++) {
-            console.log(`\t\t${cardBoard[x].Value.join("\t\t")}`);
+            for (let z = 0; z < 5; z++) {
+                newDisplay[z].push(cardBoard[x].Value[z])
+            }
+        }
+        for (let i = 0; i < newDisplay.length; i++) {
+            console.log(`\t\t|\t${newDisplay[i].join("\t--\t")}\t|`);
         }
         if (userPlaying === false) secondMenuGame();
     }
-
-    const showCardBoardOnPlay = () => {
+    
+    const playingTheGame = () => {
+        clearStoredData()
         showCardBoard()
+        
     }
-
+    
     wellcome();
     generateBallDispenser();
 }
