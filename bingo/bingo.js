@@ -39,7 +39,7 @@ const bingo = () => {
                 console.log(`Gracias por jugar ${userName}, vuelve pronto!`);
                 break;
             default:
-                alert("Introduce una de las opciones disponibles")
+                alert("Introduce una de las opciones disponibles");
                 mainMenuGame();
         }
     }
@@ -50,37 +50,37 @@ const bingo = () => {
             case "1":
                 clearStoredData(), cleanCardBoard();
                 generateNewCardboard();
-                showCardBoard()
+                showCardBoard();
                 break;
             case "2":
-                playingMenuGame()
+                playingMenuGame();
                 break;
             case "3":
-                mainMenuGame()
+                mainMenuGame();
                 break;
             default:
-                alert("Introduce una de las opciones disponibles")
-                secondMenuGame()
+                alert("Introduce una de las opciones disponibles");
+                secondMenuGame();
         }
     }
 
     const playingMenuGame = () => {
-        alert("Listos para jugar! \nPara sacar un numero, simplemente dale a Aceptar en cada turno, \nde lo contrario dale a Cancelar para volver al menu principal")
-        userPlaying = true
+        alert("Listos para jugar! \nPara sacar un numero, simplemente dale a Aceptar en cada turno, \nde lo contrario dale a Cancelar para volver al menu principal");
+        userPlaying = true;
         do {
             const playingCheck = confirm("Sacar Numero!");
             switch (playingCheck) {
                 case true:
-                    playingTheGame()
+                    playingTheGame();
                     break;
                 case false:
                     userPlaying = false;
-                    console.clear()
-                    cleanCardBoard()
+                    console.clear();
+                    cleanCardBoard();
                     break;
             }
         } while (userPlaying === true);
-        secondMenuGame()
+        secondMenuGame();
     }
 
     const clearStoredData = () => {
@@ -97,11 +97,10 @@ const bingo = () => {
     const generateBallDispenser = () => {
         for (let x = 0; x < cardBoard.length; x++) {
             for (let z = cardBoard[x].RangeOfNumbers[0]; z <= cardBoard[x].RangeOfNumbers[1]; z++) {
-                ballDispenserNumbers.push(cardBoard[x].letter + "-" + z)
+                ballDispenserNumbers.push(cardBoard[x].letter + "-" + z);
             }
         }
     }
-    
     
     const generateNewCardboard = () => {
         for (let x = 0; x < cardBoard.length; x++) {
@@ -133,16 +132,19 @@ const bingo = () => {
     }
     
     const playingTheGame = () => {
+        clearStoredData();
+        showCardBoard();
         userTurns = userTurns + 1;
         let randomBall = generateRandomNumber(0, ballDispenserNumbers.length -1);
         let matchNumber = ballDispenserNumbers[randomBall].replace(/\D/g, '');
-        clearStoredData();
-        showCardBoard();
-        console.log(matchNumber);
-
+        console.log(typeof(matchNumber));
         if (ballDispenserNumbers.length > 0) console.log(`\t\t\tBola N.º: ${ballDispenserNumbers[randomBall]} Turnos: ${userTurns} linea: ${line}`);
         ballDispenserNumbers.splice(randomBall, 1);
-
+        for (let x = 0; x < cardBoard.length; x++) {
+            for (let z = 0; z < cardBoard[x].Value.length; z++) {
+                if (cardBoard[x].Value[z] == matchNumber) cardBoard[x].Value[z] = "X";
+            }            
+        }
     }
     
     generateBallDispenser();
