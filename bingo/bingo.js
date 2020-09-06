@@ -5,7 +5,14 @@ const bingo = () => {
     let userPlaying = false;
     let userTurns = 0;
     let lineMatch = false
-    let bingoMatch = false
+    let userHaveCardBoard = false;
+    let highScore = [
+        { name: userName, points: userTurns },
+        { name: "Nuria", points: 72 },
+        { name: "Albert", points: 86 },
+        { name: "Paula", points: 65 },
+        { name: "Joan", points: 69 }
+    ]
     let newDisplay = [[], [], []];
     let lines = [[], [], []];
     let ballDispenserNumbers = [];
@@ -20,7 +27,7 @@ const bingo = () => {
         { RangeOfNumbers: [70, 79], Value: [] },
         { RangeOfNumbers: [80, 90], Value: [] },
     ];
-
+    
     const wellcome = () => {
         do {
             userName = prompt("Bienvenido a BINGO GAME! \nInserte su nombre para comenzar a jugar!");
@@ -51,24 +58,22 @@ const bingo = () => {
     }
 
     const secondMenuGame = () => {
-        const userOption = prompt("1- Generar nuevo carton! \n2- Vamos a jugar! \n3- Atras");
+        const userOption = prompt("1- Elegir carton para Jugar! \n2- Vamos a jugar! \n3- Atras");
         switch (userOption) {
             case "1":
-                clearStoredData();
+                userHaveCardBoard = true
                 cleanCardBoard();
                 generateNewCardboard();
                 showCardBoard();
                 break;
             case "2":
-                if (cardBoard[0].Value.length === 0) {
-                    generateBallDispenser();
-                    generateNewCardboard();
-                    showCardBoard();
-                    playingTheGame();
-                } else {
-                    clearStoredData();
+                if (userHaveCardBoard === true) {
+                    clearStoredData()
                     generateBallDispenser()
-                    playingMenuGame();
+                    playingMenuGame()
+                } else {
+                    alert("Necesitas un un carton para poder jugar");
+                    secondMenuGame();
                 }
                 break;
             case "3":
@@ -83,29 +88,28 @@ const bingo = () => {
     const playingMenuGame = () => {
         alert("Listos para jugar! \nPara sacar un numero, simplemente dale a Aceptar en cada turno, \nde lo contrario dale a Cancelar para volver al menu principal");
         userPlaying = true;
-        do {
+        while (userPlaying === true) {
             const playingCheck = confirm("Sacar Numero!");
             switch (playingCheck) {
                 case true:
                     playingTheGame();
                     break;
                 case false:
+                    userHaveCardBoard = false;
                     userPlaying = false;
                     console.clear();
+                    clearStoredData()
                     cleanCardBoard();
+                    secondMenuGame();
                     break;
             }
-        } while (userPlaying === true);
-        secondMenuGame();
+        }
     }
 
     const clearStoredData = () => {
-        // userPlaying = false;
         userTurns = 0;
         lineMatch = false;
-        bingoMatch = false;
         ballDispenserNumbers = [];
-        // newDisplay = [[], [], []];
         lines = [[], [], []];
     }
 
@@ -176,6 +180,9 @@ const bingo = () => {
         }
         if (ballDispenserNumbers.length > 0) {
             console.log(`\t\t\tBola N.º: ${ballDispenserNumbers[randomIndexBall]} Turnos: ${userTurns} linea: ${lineMatch ? "Si" : "No"}`);
+            console.log(lines[0]);
+            console.log(lines[1]);
+            console.log(lines[2]);
             ballDispenserNumbers.splice(randomIndexBall, 1);
         }
         if (lineMatch === false) {
@@ -183,21 +190,29 @@ const bingo = () => {
                 if (lines[x].length == 5) {
                     lineMatch = true;
                     alert("Has conseguido completar una LINEA! \nSe restarán 7 puntos de tu contador de turnos en el proximo turno!");
+                    userTurns = userTurns - 7;
                 }                
-            }1
-        }
-        if (bingoMatch === false) {
-            if (lines[0].length == 5 && lines[1].length == 5 && lines[1].length == 5) {
-                lineMatch = true;
-                alert(`BINGO, Hasta ganado con un total de ${userTurns}`);
-                bingoMatch = true;
-                userPlaying = false
             }
+        }
+        if (lines[0].length == 5 && lines[1].length == 5 && lines[2].length == 5) {
+            alert(`BINGO, Hasta ganado con un total de ${userTurns}`);
+            userPlaying = false;
+            userHaveCardBoard = false;
+            highScoreTable()
+            cleanCardBoard()
+            clearStoredData()
+            mainMenuGame()
         }
 
     }
+
+    const highScoreTable = () => {
+        highScore.sort(function (a, b) {return a.points - b.points});  
+        highScore.forEach(score => {console.log(`Jugador: ${score.name} Puntos: ${score.points}`)});
+    }
+
     wellcome();
 }
-
-
 // bingo()
+
+
