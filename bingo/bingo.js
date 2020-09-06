@@ -27,7 +27,7 @@ const bingo = () => {
         { RangeOfNumbers: [70, 79], Value: [] },
         { RangeOfNumbers: [80, 90], Value: [] },
     ];
-    
+
     const wellcome = () => {
         do {
             userName = prompt("Bienvenido a BINGO GAME! \nInserte su nombre para comenzar a jugar!");
@@ -45,7 +45,7 @@ const bingo = () => {
                secondMenuGame();
                 break;
             case "2":
-                alert("Bienvenido a BINGO GAME! \nEl juego es muy sencillo, iran saliendo numeros aleatorios de nuestra bola virtual. \nGana quien complete el tablero en la menor cantidad de turnos. \nCompletar la primera linea, resta 5 puntos a tu contador de turnos! \nSe podran visualizar todas las bolas que vayan saliendo a lo largo del juego. \nDicho esto! a JUGAR!");
+                alert("Bienvenido a BINGO GAME! de 90 Bolas \nEs un bingo clasico en formato consola. \nPodras sacar aleatoriamente cartones hasta tener el que mas te guste \nCompletar una linea te otorgara 7 puntos, que se descontaran de tu cantidad de turnos \nA ver si logras completar el BINGO en el menor de turnos posible. \nDicho esto! a JUGAR!");
                 mainMenuGame();
                 break;
             case "3":
