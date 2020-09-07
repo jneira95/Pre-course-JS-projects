@@ -4,15 +4,9 @@ const bingo = () => {
     let userName;
     let userPlaying = false;
     let userTurns = 0;
+    let pointsOnLine = 0;
     let lineMatch = false
     let userHaveCardBoard = false;
-    let highScore = [
-        { name: userName, points: userTurns },
-        { name: "Nuria", points: 72 },
-        { name: "Albert", points: 86 },
-        { name: "Paula", points: 65 },
-        { name: "Joan", points: 69 }
-    ]
     let newDisplay = [[], [], []];
     let lines = [[], [], []];
     let ballDispenserNumbers = [];
@@ -89,6 +83,7 @@ const bingo = () => {
         alert("Listos para jugar! \nPara sacar un numero, simplemente dale a Aceptar en cada turno, \nde lo contrario dale a Cancelar para volver al menu principal");
         userPlaying = true;
         while (userPlaying === true) {
+
             const playingCheck = confirm("Sacar Numero!");
             switch (playingCheck) {
                 case true:
@@ -109,6 +104,7 @@ const bingo = () => {
     const clearStoredData = () => {
         userTurns = 0;
         lineMatch = false;
+        pointsOnLine = 0;
         ballDispenserNumbers = [];
         lines = [[], [], []];
     }
@@ -145,8 +141,8 @@ const bingo = () => {
             n = 0;
             while (n < 4) {
                 let randomFillCardBoard = generateRandomNumber(0, 8)
-                if (newDisplay[x][randomFillCardBoard] !== `#`) {
-                    newDisplay[x].splice(randomFillCardBoard, 1, `#`)
+                if (newDisplay[x][randomFillCardBoard] !== `|||`) {
+                    newDisplay[x].splice(randomFillCardBoard, 1, `|||`)
                     n++
                 } else continue;
             }
@@ -159,14 +155,14 @@ const bingo = () => {
     
     const showCardBoard = () => {
         console.clear()
+        console.log(`\t\t\tBINGO GAME 90 BOLAS`);
         for (let i = 0; i < newDisplay.length; i++) {
-            console.log(`\t\t|\t${newDisplay[i].join("\t")}\t|`);
+            console.log(`|\t${newDisplay[i].join("\t")}\t|`);
         }
         if (userPlaying === false) secondMenuGame();
     }
-    
+
     const playingTheGame = () => {
-        showCardBoard();
         userTurns = userTurns + 1;
         let randomIndexBall = generateRandomNumber(0, ballDispenserNumbers.length - 1);
         let getBall = ballDispenserNumbers[randomIndexBall]
@@ -178,39 +174,32 @@ const bingo = () => {
                 }
             }
         }
-        if (ballDispenserNumbers.length > 0) {
-            console.log(`\t\t\tBola N.º: ${ballDispenserNumbers[randomIndexBall]} Turnos: ${userTurns} linea: ${lineMatch ? "Si" : "No"}`);
-            console.log(lines[0]);
-            console.log(lines[1]);
-            console.log(lines[2]);
-            ballDispenserNumbers.splice(randomIndexBall, 1);
-        }
         if (lineMatch === false) {
             for (let x = 0; x < lines.length; x++) {
                 if (lines[x].length == 5) {
                     lineMatch = true;
-                    alert("Has conseguido completar una LINEA! \nSe restarán 7 puntos de tu contador de turnos en el proximo turno!");
+                    pointsOnLine = userTurns - 7
                     userTurns = userTurns - 7;
                 }                
             }
         }
+        showCardBoard();
+        if (ballDispenserNumbers.length > 0) {
+            console.log(`\tBola N.º: ${ballDispenserNumbers[randomIndexBall]} Turnos: ${userTurns} linea: ${lineMatch ? "Si" : "No"}`);
+            if (lineMatch === true) {
+                console.log(`!LINEA!, Has conseguido linea con ${pointsOnLine} puntos`);
+            } 
+            ballDispenserNumbers.splice(randomIndexBall, 1);
+        }
         if (lines[0].length == 5 && lines[1].length == 5 && lines[2].length == 5) {
-            alert(`BINGO, Hasta ganado con un total de ${userTurns}`);
+            console.log(`!BINGO!, Hasta ganado con un total de ${userTurns} puntos!`);
             userPlaying = false;
             userHaveCardBoard = false;
-            highScoreTable()
             cleanCardBoard()
             clearStoredData()
             mainMenuGame()
         }
-
     }
-
-    const highScoreTable = () => {
-        highScore.sort(function (a, b) {return a.points - b.points});  
-        highScore.forEach(score => {console.log(`Jugador: ${score.name} Puntos: ${score.points}`)});
-    }
-
     wellcome();
 }
 bingo()
