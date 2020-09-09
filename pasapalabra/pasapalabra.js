@@ -74,7 +74,6 @@ const playingPasalabra = () => {
     
     for (let x = 0; x < questionList.length; x++) {
         console.log(`${questionList[x].question[questionsToAsk]}`);            
-
         while(keepPlaying === true) {
             let userAnswer
             do {
@@ -82,6 +81,12 @@ const playingPasalabra = () => {
             } while (userAnswer === "" || userAnswer === null);
             userAnswer.toLowerCase()
             if (userAnswer === "end") break;
+            if (userAnswer === "pasapalabra") console.log("pasapalabra");
+            if (userAnswer === questionList[x].answer[questionsToAsk]) {
+                letters[x] = 
+                questionList = questionList[x].answer
+
+            }
     
             for (let x = 0; x <= 1; x++) {
                 if (x === 0) console.log(`\t\t%c${letters.slice(0, 13).join(" | ")}`, "color: orange; font-size: 15px");
