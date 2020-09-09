@@ -10,7 +10,7 @@ PRO
     ● Prepara tu programa para que no repita siempre las mismas preguntas, por ejemplo, de la misma letra, 
     se podrían hacer tres preguntas diferentes.
 */
-
+'use strict'
 
 const pasalabra = () => {
 
@@ -50,60 +50,55 @@ let questionList = [
     { letter: "z", answer: ["zoom", "zettabyte", "zombie"], status: 0, question: ["CON LA Z: Aplicación que utilizo cuando teletrabajo para reunirme con mis compañeros de equipo", "CON LA Z: Unidad de almacenamiento de información equivale a 1021 bytes, cuyo prefijo fue adoptado en 1991, viene del latín septem, que significa siete", "CON LA Z: "] }
 ];
 
-
-const wellcome = () => {
+function wellcome() {
     userName = prompt("Bienvenid@ al pasapalabras, introduce tu nombre", "John Doe");
     userName === "" || userName == null ? wellcome() : (alert(`Bienvenido ${userName}`), playingConfirm());
 }
-
-const playingConfirm = () => {
+function playingConfirm() {
     let wantToPlay = confirm(`El pasapalabras esta a punto de empezar!, pero antes haremos un pequeño recordatorio. \n\t-Respuesta correcta: 1 Punto ${check} \n\t-Respuesta incorrecta: 1 error ${cross} \n\t-Escribir PASAPALABRA: No contara ${circ} \n!BUENA SUERTE!`);
-    wantToPlay ? (resetNewGame(), playingPasalabra()) : console.log("Hasta luego!");
+    wantToPlay ? (resetNewGame(), playingPasapalabra(questionList)) : console.log("Hasta luego!");
 }
 
-const resetNewGame = () => {
+function resetNewGame() {
     letters = [];
     questionsToAsk = 0;
     for (let x = 0; x < questionList.length; x++) {
-        letters.push(questionList[x].letter.toUpperCase())
+        letters.push(questionList[x].letter.toUpperCase());
     }
-    questionsToAsk = Math.floor(Math.random() * 3)
+    questionsToAsk = Math.floor(Math.random() * 3);
 }
 
-const playingPasalabra = () => {
-    
-    for (let x = 0; x < questionList.length; x++) {
-        console.log(`${questionList[x].question[questionsToAsk]}`);            
-        while(keepPlaying === true) {
-            let userAnswer
-            do {
-                userAnswer = prompt("Escribe la respuesta")
-            } while (userAnswer === "" || userAnswer === null);
-            userAnswer.toLowerCase()
-            if (userAnswer === "end") break;
-            if (userAnswer === "pasapalabra") console.log("pasapalabra");
-            if (userAnswer === questionList[x].answer[questionsToAsk]) {
-                letters[x] = 
-                questionList = questionList[x].answer
+function playingPasapalabra(letter, answer, status, question) {
+    console.log(letter);
+    console.log(answer);
+    console.log(status);
+    console.log(question);
+}
 
-            }
-    
+playingPasapalabra(questionList)
+
+
+const playingPasalabra = () => {
+    while (keepPlaying === true) {
+        let userAnswer;
+        for (let x = 0; x < questionList.length; x++) {
+            console.log(`${questionList[x].question[questionsToAsk]}`);
             for (let x = 0; x <= 1; x++) {
                 if (x === 0) console.log(`\t\t%c${letters.slice(0, 13).join(" | ")}`, "color: orange; font-size: 15px");
                 if (x === 0) console.log(`\t\t%c${letters.slice(13, 26).join(" | ")}`, "color: orange; font-size: 15px");
             }
-            keepPlaying = false
+            do {
+                userAnswer = prompt("Escribe la respuesta")
+            } while (userAnswer === "" || userAnswer === null);
+            userAnswer.toLowerCase()
+            if (userAnswer === "end") return keepPlaying = false
+            else console.log("Hello bitch");
+            console.log("test");
+            // keepPlaying = false
         }
     }
-
-
-
-
-
 }
-
-wellcome()
+// wellcome()
 }
-
-// pasalabra()
+pasalabra()
 
