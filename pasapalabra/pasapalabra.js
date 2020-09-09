@@ -14,6 +14,10 @@ PRO
 
 const pasalabra = () => {
 
+let userName;
+let highScore = [];
+let questionsToAsk = 0;
+let letters = [];
 let questionList = [
     { letter: "a", answer: ["antivirus", "actualizar", "amazon"], status: 0, question: ["CON LA A: Programas que permiten analizar la memoria, las unidades de disco y otros elementos de un ordenador, en busca de virus.", "CON LA A: En un entrono virtual, reemplazar información por considerarse antigua o no válida", "CON LA A: Compañía creada por Jeff Bezos en 1994"] },
     { letter: "b", answer: ["bit", "blog", "backup"], status: 0, question: ["CON LA B: Unidad mínima de información empleada en la informática y en las telecomunicaciones", "CON LA B: Sitio web similiar a un diario personal online, cuyas entradas o artículos publicados se denominan post", "CON LA B: Hacer copia de seguridad."] },
@@ -43,10 +47,34 @@ let questionList = [
     { letter: "z", answer: ["zoom", "zettabyte", "zombie"], status: 0, question: ["CON LA Z: Aplicación que utilizo cuando teletrabajo para reunirme con mis compañeros de equipo", "CON LA Z: Unidad de almacenamiento de información equivale a 1021 bytes, cuyo prefijo fue adoptado en 1991, viene del latín septem, que significa siete", "CON LA Z: "] }
 ];
 
-console.log(questionList[0].question[2]);
 
-
+const wellcome = () => {
+    userName = prompt("Bienvenid@ al pasapalabras, introduce tu nombre", "John Doe");
+    userName === "" || userName == null ? wellcome() : (alert(`Bienvenido ${userName}`), playingConfirm());
 }
 
-pasalabra()
+const playingConfirm = () => {
+    let wantToPlay = confirm(`El pasapalabras esta a punto de empezar!, pero antes haremos un pequeño recordatorio. \n\t-Respuesta correcta: 1 Punto \u{02713} \n\t-Respuesta incorrecta: 1 error \u{02717} \n\t-Escribir PASAPALABRA: No contara \u{025EF} \n!BUENA SUERTE!`);
+    wantToPlay ? (resetNewGame(), playingPasalabra()) : console.log("Hasta luego!");
+}
+
+const resetNewGame = () => {
+    letters = [];
+    for (let x = 0; x < questionList.length; x++) {
+        letters.push(questionList[x].letter.toUpperCase())
+    }
+    for (let x = 0; x <= 1; x++) {
+        if (x === 0) console.log(`\t\t${letters.slice(0, 13).join(" | ")}`);
+        if (x === 0) console.log(`\t\t${letters.slice(13, 26).join(" | ")}`);
+    }
+}
+
+const playingPasalabra = () => {
+    console.log("yEAH!");
+}
+
+wellcome()
+}
+
+// pasalabra()
 
