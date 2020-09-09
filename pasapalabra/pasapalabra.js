@@ -15,8 +15,11 @@ PRO
 const pasalabra = () => {
 
 let userName;
+let keepPlaying = true;
 let highScore = [];
 let questionsToAsk = 0;
+const unicodeCharacters = ["\u{02713}", "\u{02717}", "\u{025EF}"]
+const [check, cross, circ] = unicodeCharacters
 let letters = [];
 let questionList = [
     { letter: "a", answer: ["antivirus", "actualizar", "amazon"], status: 0, question: ["CON LA A: Programas que permiten analizar la memoria, las unidades de disco y otros elementos de un ordenador, en busca de virus.", "CON LA A: En un entrono virtual, reemplazar información por considerarse antigua o no válida", "CON LA A: Compañía creada por Jeff Bezos en 1994"] },
@@ -54,23 +57,44 @@ const wellcome = () => {
 }
 
 const playingConfirm = () => {
-    let wantToPlay = confirm(`El pasapalabras esta a punto de empezar!, pero antes haremos un pequeño recordatorio. \n\t-Respuesta correcta: 1 Punto \u{02713} \n\t-Respuesta incorrecta: 1 error \u{02717} \n\t-Escribir PASAPALABRA: No contara \u{025EF} \n!BUENA SUERTE!`);
+    let wantToPlay = confirm(`El pasapalabras esta a punto de empezar!, pero antes haremos un pequeño recordatorio. \n\t-Respuesta correcta: 1 Punto ${check} \n\t-Respuesta incorrecta: 1 error ${cross} \n\t-Escribir PASAPALABRA: No contara ${circ} \n!BUENA SUERTE!`);
     wantToPlay ? (resetNewGame(), playingPasalabra()) : console.log("Hasta luego!");
 }
 
 const resetNewGame = () => {
     letters = [];
+    questionsToAsk = 0;
     for (let x = 0; x < questionList.length; x++) {
         letters.push(questionList[x].letter.toUpperCase())
     }
-    for (let x = 0; x <= 1; x++) {
-        if (x === 0) console.log(`\t\t${letters.slice(0, 13).join(" | ")}`);
-        if (x === 0) console.log(`\t\t${letters.slice(13, 26).join(" | ")}`);
-    }
+    questionsToAsk = Math.floor(Math.random() * 3)
 }
 
 const playingPasalabra = () => {
-    console.log("yEAH!");
+    
+    for (let x = 0; x < questionList.length; x++) {
+        console.log(`${questionList[x].question[questionsToAsk]}`);            
+
+        while(keepPlaying === true) {
+            let userAnswer
+            do {
+                userAnswer = prompt("Escribe la respuesta")
+            } while (userAnswer === "" || userAnswer === null);
+            userAnswer.toLowerCase()
+            if (userAnswer === "end") break;
+    
+            for (let x = 0; x <= 1; x++) {
+                if (x === 0) console.log(`\t\t%c${letters.slice(0, 13).join(" | ")}`, "color: orange; font-size: 15px");
+                if (x === 0) console.log(`\t\t%c${letters.slice(13, 26).join(" | ")}`, "color: orange; font-size: 15px");
+            }
+            keepPlaying = false
+        }
+    }
+
+
+
+
+
 }
 
 wellcome()
