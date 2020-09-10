@@ -12,7 +12,7 @@ PRO
 */
 'use strict'
 
-const pasalabra = () => {
+const pasapalabra = () => {
 
 let userName;
 let keepPlaying = true;
@@ -52,7 +52,7 @@ let questionList = [
 
 function wellcome() {
     userName = prompt("Bienvenid@ al pasapalabras, introduce tu nombre", "John Doe");
-    userName === "" || userName == null ? wellcome() : (alert(`Bienvenido ${userName}`), playingConfirm());
+    userName === "" || userName == null ? (alert("Nombre Invalido"), wellcome()) : (alert(`Bienvenido ${userName}`), playingConfirm())
 }
 function playingConfirm() {
     let wantToPlay = confirm(`El pasapalabras esta a punto de empezar!, pero antes haremos un pequeño recordatorio. \n\t-Respuesta correcta: 1 Punto ${check} \n\t-Respuesta incorrecta: 1 error ${cross} \n\t-Escribir PASAPALABRA: No contara ${circ} \n!BUENA SUERTE!`);
@@ -68,19 +68,35 @@ function resetNewGame() {
     questionsToAsk = Math.floor(Math.random() * 3);
 }
 
-function playingPasapalabra(letter, answer, status, question) {
-    console.log(letter);
+function playingPasapalabra(questionListArray) {
+    let userAnswer;
+    let pendingLetters = []
+    for (let x = 0; x < questionListArray.length; x++) {
+        pendingLetters.push(questionListArray[x].letter)
+    }
+    while (keepPlaying === true) {
+        
+
+            if (questionListArray[x].status === 0) console.log(`${questionListArray[x].question[questionsToAsk]}`);
+        break;
+
+
+
+        
+    }
+
+    console.log(questionList[0].answer[0]);
     console.log(answer);
     console.log(status);
     console.log(question);
 }
 
-playingPasapalabra(questionList)
+// playingPasapalabra(questionList)
 
 
 const playingPasalabra = () => {
     while (keepPlaying === true) {
-        let userAnswer;
+        // let userAnswer;
         for (let x = 0; x < questionList.length; x++) {
             console.log(`${questionList[x].question[questionsToAsk]}`);
             for (let x = 0; x <= 1; x++) {
@@ -100,5 +116,5 @@ const playingPasalabra = () => {
 }
 // wellcome()
 }
-pasalabra()
+// pasapalabra()
 
