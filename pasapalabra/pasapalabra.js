@@ -14,12 +14,6 @@ PRO
 
 const pasapalabra = () => {
 
-let userName;
-let highScore = [];
-let questionsToAsk = 0;
-const unicodeCharacters = ["\u{02713}", "\u{02717}", "\u{025EF}"]
-const [check, cross, circ] = unicodeCharacters
-let letters = [];
 let questionList = [
     { letter: "a", answer: ["antivirus", "actualizar", "amazon"], status: 0, question: ["CON LA A: Programas que permiten analizar la memoria, las unidades de disco y otros elementos de un ordenador, en busca de virus.", "CON LA A: En un entrono virtual, reemplazar información por considerarse antigua o no válida", "CON LA A: Compañía creada por Jeff Bezos en 1994"] },
     { letter: "b", answer: ["bit", "blog", "backup"], status: 0, question: ["CON LA B: Unidad mínima de información empleada en la informática y en las telecomunicaciones", "CON LA B: Sitio web similiar a un diario personal online, cuyas entradas o artículos publicados se denominan post", "CON LA B: Hacer copia de seguridad."] },
@@ -46,21 +40,36 @@ let questionList = [
     { letter: "w", answer: ["wallapop", "webinar", "wav"], status: 0, question: ["CON LA W: Empresa española fundada en el año 2013, que ofrece una plataforma dedicada a la compra venta de productos de segunda mano entre usuarios a través de Internet", "CON LA W: Conferencia o seminario en formato online que se transmite en directo a través de una herramienta especializada", "CON LA W: Extensión de tipo de formato de sonido con muy poca o nula compresión."] },
     { letter: "x", answer: ["xeon", "xml", "xxi"], status: 0, question: ["CON LA X: Familia de microprocesadores Intel para servidores PC y Macintosh", "CON LA X: Lenguaje de Marcado Extensible o Lenguaje de Marcas Extensible, metalenguaje que permite definir lenguajes de marcas", "CON LA X: Siglo actual dónde la computadora parece que estuvo toda la vida y ahora nos parece imposible vivir sin tecnología"] },
     { letter: "y", answer: ["youtuber", "yahoo", "yosemite"], status: 0, question: ["CON LA Y: Profesion de moda entre los más pequeños que consiste en grabar videos y subirlos su canal en una plataforma online, para conseguir el mayor numero de visitas posible", "CON LA Y: Empresa global de medios con sede en Estados Unidos que posee un portal de Internet, un directorio web y una serie de servicios tales como el popular correo electrónico", "CON LA Y: Undécima versión de OS X, el sistema operativo de Apple para los ordenadores Macintosh."] },
-    { letter: "z", answer: ["zoom", "zettabyte", "zombie"], status: 0, question: ["CON LA Z: Aplicación que utilizo cuando teletrabajo para reunirme con mis compañeros de equipo", "CON LA Z: Unidad de almacenamiento de información equivale a 1021 bytes, cuyo prefijo fue adoptado en 1991, viene del latín septem, que significa siete", "CON LA Z: "] }
+    { letter: "z", answer: ["zoom", "zettabyte", "zombie"], status: 0, question: ["CON LA Z: Aplicación que utilizo cuando teletrabajo para reunirme con mis compañeros de equipo", "CON LA Z: Unidad de almacenamiento de información equivale a 1021 bytes, cuyo prefijo fue adoptado en 1991, viene del latín septem, que significa siete", "CON LA Z: Ordenador conectado a la red que ha sido comprometido por un hacker, un virus informático o un troyano. Puede ser utilizado para realizar distintas tareas maliciosas de forma remota"] }
 ];
+
+let userName;
+let highScore = [
+    {name: "Nuria", score: 22},
+    {name: "Albert", score: 8},
+    {name: "Marina", score: 11},
+    {name: "Jorge", score: 19},
+    {name: "Paula", score: 13}
+];
+let questionsToAsk, correct, incorrect, letters
+const unicodeCharacters = ["\u{02713}", "\u{02717}"]
+const [check, cross] = unicodeCharacters
 
 function wellcome() {
     userName = prompt("Bienvenid@ al pasapalabras, introduce tu nombre", "John Doe");
     userName === "" || userName == null ? (alert("Nombre Invalido"), wellcome()) : (alert(`Bienvenido ${userName}`), playingConfirm())
 }
+
 function playingConfirm() {
-    let wantToPlay = confirm(`El pasapalabras esta a punto de empezar!, pero antes haremos un pequeño recordatorio. \n\t-Respuesta correcta: 1 Punto ${check} \n\t-Respuesta incorrecta: 1 error ${cross} \n\t-Escribir PASAPALABRA: No contara ${circ} \n!BUENA SUERTE!`);
+    let wantToPlay = confirm(`El pasapalabras esta a punto de empezar!, pero antes haremos un pequeño recordatorio. \n\t-Respuesta correcta: 1 Punto ${check} \n\t-Respuesta incorrecta: 1 error ${cross} \n\t-Escribir PASAPALABRA: No contara \nEl juego acabara cuando respondas a todas las preguntas \nSi deseas finalizar el juego, simplemente escribe "END" como respuesta \n!BUENA SUERTE!`);
     wantToPlay ? (resetNewGame(), playingPasapalabra(questionList)) : console.log("Hasta luego!");
 }
 
 function resetNewGame() {
-    letters = [];
     questionsToAsk = 0;
+    correct = 0;
+    incorrect = 0;
+    letters = [];
     for (let x = 0; x < questionList.length; x++) {
         letters.push(questionList[x].letter.toUpperCase());
         questionList[x].status = 0;
@@ -70,39 +79,53 @@ function resetNewGame() {
 
 function playingPasapalabra(questionListArray) {
     let userAnswer;
-    let questionCounter = 0;
+    let questionAnswerCounter = 0;
     let x;
-    while (questionCounter !== 26) {
+    while (questionAnswerCounter !== 26) {
         for (x = 0; x < questionListArray.length; x++) {
-            if (questionListArray[x].status === 0) console.log(`Pregunta: ${questionListArray[x].question[questionsToAsk]}`);
+            if (questionListArray[x].status === 0) console.log(`\nPregunta: ${questionListArray[x].question[questionsToAsk]}`);
             else continue;
+            do {
+                userAnswer = prompt("Escribe la respuesta")
+            } while (userAnswer === "" || userAnswer === null);
+            userAnswer.toLowerCase()
+            if (userAnswer === "end") break;
+            if (userAnswer === "pasapalabra") continue;
+            if (userAnswer === questionListArray[x].answer[questionsToAsk]) {
+                console.log(`CORRECTO! Has conseguido 1 punto! \n\tTu respuesta: ${userAnswer}`) 
+                questionListArray[x].status = 1
+                letters[x] = check
+                questionAnswerCounter++, correct++
+            } else {
+                console.log(`INCORRECTO! Lo haras mejor en la proxima pregunta! \n\tTu respuesta: ${userAnswer} \n\tRespuesta Correcta: ${questionListArray[x].answer[questionsToAsk]}`)
+                questionListArray[x].status = 1
+                letters[x] = cross
+                questionAnswerCounter++, incorrect++
+            }
             console.log(`\t\t%c${letters.slice(0, 13).join(" | ")}`, "color: orange; font-size: 15px");
             console.log(`\t\t%c${letters.slice(13, 26).join(" | ")}`, "color: orange; font-size: 15px");
-        do {
-            userAnswer = prompt("Escribe la respuesta")
-        } while (userAnswer === "" || userAnswer === null);
-        userAnswer.toLowerCase()
-        if (userAnswer === "end") break;
-        if (userAnswer === "pasapalabra") continue;
-        if (userAnswer === questionListArray[x].answer[questionsToAsk]) {
-            questionListArray[x].status = 1, letters[x] = check, questionCounter++
-        } else {
-            questionListArray[x].status = 1, letters[x] = cross, questionCounter++
         }
+        if (userAnswer === "end") {
+            exit()
+            break;
+        }
+        questionAnswerCounter !== 26 && (x = 0)
     }
-    if (userAnswer === "end") break;
-    if (questionCounter !== 26) x = 0
-    }
+    questionAnswerCounter === 26 && finishGame()
+}
+
+function finishGame() {
+    let userFinalResult = {name: userName, score: correct}
+    highScore.push(userFinalResult);
+    console.log(`Has finalizado el pasapalabras con ${correct} aciertos y ${incorrect} fallos. \nTabla de rankings:`);
+    highScore.sort(function (a, b) { return b.score - a.score });
+    highScore.forEach(scoreArray => {console.log(`Nombre: ${scoreArray.name} Puntos: ${scoreArray.score}`)});
+    confirm("Desea Volver a Jugar") ? wellcome() : console.log("Hasta la proxima!");
 }
 
 function exit() {
-    
+    console.log(`Gracias por jugar, has abandonado la partida con ${correct} aciertos. \nVuelve pronto!`);
 }
-
-
-
-    // if (x === 0) console.log(`\t\t%c${letters.slice(0, 13).join(" | ")}`, "color: orange; font-size: 15px");
-    // if (x === 0) console.log(`\t\t%c${letters.slice(13, 26).join(" | ")}`, "color: orange; font-size: 15px");
 wellcome()
 }
 
