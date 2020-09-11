@@ -129,5 +129,5 @@ function exit() {
 wellcome()
 }
 
-// pasapalabra()
+pasapalabra()
 
