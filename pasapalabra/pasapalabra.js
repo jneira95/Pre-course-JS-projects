@@ -15,7 +15,6 @@ PRO
 const pasapalabra = () => {
 
 let userName;
-let keepPlaying = true;
 let highScore = [];
 let questionsToAsk = 0;
 const unicodeCharacters = ["\u{02713}", "\u{02717}", "\u{025EF}"]
@@ -25,7 +24,7 @@ let questionList = [
     { letter: "a", answer: ["antivirus", "actualizar", "amazon"], status: 0, question: ["CON LA A: Programas que permiten analizar la memoria, las unidades de disco y otros elementos de un ordenador, en busca de virus.", "CON LA A: En un entrono virtual, reemplazar información por considerarse antigua o no válida", "CON LA A: Compañía creada por Jeff Bezos en 1994"] },
     { letter: "b", answer: ["bit", "blog", "backup"], status: 0, question: ["CON LA B: Unidad mínima de información empleada en la informática y en las telecomunicaciones", "CON LA B: Sitio web similiar a un diario personal online, cuyas entradas o artículos publicados se denominan post", "CON LA B: Hacer copia de seguridad."] },
     { letter: "c", answer: ["conexion", "comprimir", "cracker"], status: 0, question: ["CON LA C: Enlace que se establece entre el emisor y el receptor a través del que se envía el mensaje", "CON LA C: Reducir el peso de un archivo para que ocupe menos espacio sin perder la información original", "CON LA C: Es una persona interesada en saltarse la seguridad de un sistema informático."] },
-    { letter: "d", answer: ["directorio", "digital", "ctrl + d"], status: 0, question: ["CON LA D: Tipo de buscador", "CON LA D: Contrario a analógico", "CON LA D: Estructura de objetos que genera el navegador cuando se carga un documento y se puede alterar mediante Javascript para cambiar dinámicamente los contenidos y aspecto de la página."] },
+    { letter: "d", answer: ["directorio", "digital", "dom"], status: 0, question: ["CON LA D: Tipo de buscador", "CON LA D: Contrario a analógico", "CON LA D: Estructura de objetos que genera el navegador cuando se carga un documento y se puede alterar mediante Javascript para cambiar dinámicamente los contenidos y aspecto de la página."] },
     { letter: "e", answer: ["ebay", "encriptar", "extension"], status: 0, question: ["CON LA E: Sitio de subastas por internet más popular en el mundo.", "CON LA E: Proteger archivos expresando su contenido en un lenguaje cifrado", "CON LA E: Cadena de caracteres anexado al nombre de un archivo usualmente precedido de un punto"] },
     { letter: "f", answer: ["facebook", "fakenews", "firewall"], status: 0, question: ["CON LA F: Red social creada por Mark Zuckerberg en 2006", "CON LA F: Bulos o noticias falsas en la red", "CON LA F: Su traducción literal es muro de fuego, también conocido a nivel técnico como cortafuegos."] },
     { letter: "g", answer: ["gift", "gigaherzt", "gusano"], status: 0, question: ["CON LA G: Formato de imagen digital usado para crear animaciones cortas que se reproducen en bucle", "CON LA G: 1000 megahertz", "CON LA G: Es un programa similar a un virus que, a diferencia de éste, solamente realiza copias de sí mismo, o de partes de él. En ingles Worm."] },
@@ -64,57 +63,48 @@ function resetNewGame() {
     questionsToAsk = 0;
     for (let x = 0; x < questionList.length; x++) {
         letters.push(questionList[x].letter.toUpperCase());
+        questionList[x].status = 0;
     }
     questionsToAsk = Math.floor(Math.random() * 3);
 }
 
 function playingPasapalabra(questionListArray) {
     let userAnswer;
-    let pendingLetters = []
-    for (let x = 0; x < questionListArray.length; x++) {
-        pendingLetters.push(questionListArray[x].letter)
-    }
-    while (keepPlaying === true) {
-        
-
-            if (questionListArray[x].status === 0) console.log(`${questionListArray[x].question[questionsToAsk]}`);
-        break;
-
-
-
-        
-    }
-
-    console.log(questionList[0].answer[0]);
-    console.log(answer);
-    console.log(status);
-    console.log(question);
-}
-
-// playingPasapalabra(questionList)
-
-
-const playingPasalabra = () => {
-    while (keepPlaying === true) {
-        // let userAnswer;
-        for (let x = 0; x < questionList.length; x++) {
-            console.log(`${questionList[x].question[questionsToAsk]}`);
-            for (let x = 0; x <= 1; x++) {
-                if (x === 0) console.log(`\t\t%c${letters.slice(0, 13).join(" | ")}`, "color: orange; font-size: 15px");
-                if (x === 0) console.log(`\t\t%c${letters.slice(13, 26).join(" | ")}`, "color: orange; font-size: 15px");
-            }
-            do {
-                userAnswer = prompt("Escribe la respuesta")
-            } while (userAnswer === "" || userAnswer === null);
-            userAnswer.toLowerCase()
-            if (userAnswer === "end") return keepPlaying = false
-            else console.log("Hello bitch");
-            console.log("test");
-            // keepPlaying = false
+    let questionCounter = 0;
+    let x;
+    while (questionCounter !== 26) {
+        for (x = 0; x < questionListArray.length; x++) {
+            if (questionListArray[x].status === 0) console.log(`Pregunta: ${questionListArray[x].question[questionsToAsk]}`);
+            else continue;
+            console.log(`\t\t%c${letters.slice(0, 13).join(" | ")}`, "color: orange; font-size: 15px");
+            console.log(`\t\t%c${letters.slice(13, 26).join(" | ")}`, "color: orange; font-size: 15px");
+        do {
+            userAnswer = prompt("Escribe la respuesta")
+        } while (userAnswer === "" || userAnswer === null);
+        userAnswer.toLowerCase()
+        if (userAnswer === "end") break;
+        if (userAnswer === "pasapalabra") continue;
+        if (userAnswer === questionListArray[x].answer[questionsToAsk]) {
+            questionListArray[x].status = 1, letters[x] = check, questionCounter++
+        } else {
+            questionListArray[x].status = 1, letters[x] = cross, questionCounter++
         }
     }
+    if (userAnswer === "end") break;
+    if (questionCounter !== 26) x = 0
+    }
 }
-// wellcome()
+
+function exit() {
+    
 }
+
+
+
+    // if (x === 0) console.log(`\t\t%c${letters.slice(0, 13).join(" | ")}`, "color: orange; font-size: 15px");
+    // if (x === 0) console.log(`\t\t%c${letters.slice(13, 26).join(" | ")}`, "color: orange; font-size: 15px");
+wellcome()
+}
+
 // pasapalabra()
 
