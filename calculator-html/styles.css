@@ -23,6 +23,7 @@ body {
 
 .calculator-container > button {
     margin: 5px;
+    outline: none;
     background-color: #8cffda;
     border-radius: 20px;
     border: 1.8px solid #FFD700;
@@ -33,7 +34,8 @@ body {
 
 button.operand {
     background-color: rgb(255,215,0);
-    background-color:rgb(255,110,180);
+    background-color: #8447ff;
+    color: #8cffda;
 }
 
 .first-span {
