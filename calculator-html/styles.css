@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: 'Dosis', sans-serif;
 }
+
 body {
     height: 100vh;
     margin: 0;
@@ -41,6 +42,7 @@ button.operand {
 .first-span {
     grid-column: 1 / span 2;
 }
+
 .second-span {
     grid-column: span 2;
 }
