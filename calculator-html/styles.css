@@ -16,7 +16,6 @@ body {
 }
 
 .calculator-container {
-    min-height: 50vh;
     display: grid;
     grid-template-columns: repeat(4, 90px);
     grid-template-rows: minmax(120px, auto) repeat(5, 90px);

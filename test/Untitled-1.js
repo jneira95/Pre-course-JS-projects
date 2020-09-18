@@ -1,105 +1,401 @@
-// VERSIÓN PRO
+let questions = [
+  {
+    letter: "a",
+    answer: ["abducir", "ahorrar", "aceite"],
+    status: 0,
+    question: [
+      "CON LA A. Apoderarse de alguien",
+      "CON LA A. Guardar dinero como previsión para necesidades futuras",
+      "CON LA A. Liquido graso de color verde amarillento que se obtiene prensando las aceitunas.",
+    ],
+  },
+  {
+    letter: "b",
+    answer: ["bingo", "beca", "brillante"],
+    status: 0,
+    question: [
+      "CON LA B. Juego que ha sacado de quicio a todos los 'Skylabers' en las sesiones de precurso",
+      "CON LA B. Subvención para realizar estudios o investigaciones",
+      "CON LA B. Admirable o sobresaliente en su línea.",
+    ],
+  },
+  {
+    letter: "c",
+    answer: ["churumbel", "chorizo", "culpar"],
+    status: 0,
+    question: [
+      "CON LA C. Niño, crío, bebé",
+      "CON LA C. Coloquialmente, ratero, ladronzuelo.",
+      "CON LA C. Atribuir o echar la culpa a alguien",
+    ],
+  },
+  {
+    letter: "d",
+    answer: ["diarrea", "deportar", "devoto"],
+    status: 0,
+    question: [
+      "CON LA D. Anormalidad en la función del aparato digestivo caracterizada por frecuentes evacuaciones y su consistencia líquida",
+      "CON LA D: Desterrar a alguien de algún lugar, por lo regular extranjero, y confinarlo allí por razones políticas o como castigo.",
+      "CON LA D. Dedicación con fervor a obras de piedad y religión",
+    ],
+  },
+  {
+    letter: "e",
+    answer: ["ectoplasma", "envoltorio", "entera"],
+    status: 0,
+    question: [
+      "CON LA E. Gelatinoso y se encuentra debajo de la membrana plasmática. Los cazafantasmas medían su radiación",
+      "CON LA E. Capa exterior que cubre natural o artificialmente una cosa",
+      "CON LA E. Se dice de la leche que conserva toda la grasa y sustancias nutritivas",
+    ],
+  },
+  {
+    letter: "f",
+    answer: ["facil", "forestal", "frenar"],
+    status: 0,
+    question: [
+      "CON LA F. Que no requiere gran esfuerzo, capacidad o dificultad",
+      "CON LA F. Perteneciente o relativo a los bosques y a los aprovechamientos de leñas o pastos",
+      "CON LA F.Moderar o parar el movimiento de algo",
+    ],
+  },
+  {
+    letter: "g",
+    answer: ["galaxia", "grupo", "guitarra"],
+    status: 0,
+    question: [
+      "CON LA G. Conjunto enorme de estrellas, polvo interestelar, gases y partículas",
+      "CON LA G. Pluralidad de seres o cosas que forman un conjunto",
+      "CON LA G. Instrumento musical de cuerda",
+    ],
+  },
+  {
+    letter: "h",
+    answer: ["harakiri", "hombrera", "huelga"],
+    status: 0,
+    question: [
+      "CON LA H. Suicidio ritual japonés por desentrañamiento",
+      "CON LA H. Adorno especial de los vestidos en la parte correspondiente a los hombros",
+      "CON LA H. Interrupción colectiva de la actividad laboral por parte de los trabajadores con el fin de reivindicar ciertas condiciones o manifestar una protesta",
+    ],
+  },
+  {
+    letter: "i",
+    answer: ["iglesia", "indignar", "intuir"],
+    status: 0,
+    question: [
+      "CON LA I. Templo cristiano",
+      "CON LA I. Irritar, enfadar vehementemente a alguien",
+      "CON LA I.Percibir íntima o instantáneamente una idea o verdad tal como si la tuviera a la vista",
+    ],
+  },
+  {
+    letter: "j",
+    answer: ["jabali", "jornada", "jubilado"],
+    status: 0,
+    question: [
+      "CON LA J. Variedad salvaje del cerdo que sale en la película 'El Rey León', de nombre Pumba",
+      "CON LA J. Tiempo de duración del trabajo diario",
+      "CON LA J. Persona que ha dejado de trabajar y percibe una pensión",
+    ],
+  },
+  {
+    letter: "k",
+    answer: ["kamikaze", "koala", "karma"],
+    status: 0,
+    question: [
+      "CON LA K. Persona que se juega la vida realizando una acción temeraria",
+      "CON LA K. Mamífero marsupial arborícola parecido a un oso pequeño, propio de los eucaliptales australianos",
+      "CON LA K. En algunas religiones de la India, energía derivada de los actos de un individuo durante su vida, que condiciona cada una de sus sucesivas reencarnaciones, hasta que alcanza la perfección.",
+    ],
+  },
+  {
+    letter: "l",
+    answer: ["licantropo", "liberar", "laberinto"],
+    status: 0,
+    question: [
+      "CON LA L. Hombre lobo",
+      "CON LA L. Hacer que alguien o algo quede libre, eximir a alguien de una obligación",
+      "CON LA L. Lugar formado artificiosamente por calles y encrucijadas, para confundir a quien se adentre en él, de modo que no pueda acertar con la salida",
+    ],
+  },
+  {
+    letter: "m",
+    answer: ["misantropo", "menor", "museo"],
+    status: 0,
+    question: [
+      "CON LA M. Persona que huye del trato con otras personas o siente gran aversión hacia ellas",
+      "CON LA M. Se dice de una persona que aún no ha cumplido la mayoría de edad",
+      "CON LA M. Lugar en que se conservan y exponen colecciones de objetos artísticos, científicos, etc.",
+    ],
+  },
+  {
+    letter: "n",
+    answer: ["necedad", "nacionalidad", "nota"],
+    status: 0,
+    question: [
+      "CON LA N. Demostración de poca inteligencia",
+      "CON LA N. Estado propio de la persona nacida o naturalizada en una nación",
+      "CON LA N. Marca o señal que se pone en algo para reconocerlo o para darlo a conocer.",
+    ],
+  },
+  {
+    letter: "ñ",
+    answer: ["señal", "soñar", "patraña"],
+    status: 0,
+    question: [
+      "CONTIENE LA \361. Indicio que permite deducir algo de lo que no se tiene un conocimiento directo.",
+      "CONTIENE Ñ. Representarse en la fantasía imágenes o sucesos mientras se duerme",
+      "CONTIENE Ñ. Mentira o noticia fabulosa de pura invención",
+    ],
+  },
+  {
+    letter: "o",
+    answer: ["orco", "ostra", "okupa"],
+    status: 0,
+    question: [
+      "CON LA O. Humanoide fantástico de apariencia terrible y bestial, piel de color verde creada por el escritor Tolkien",
+      "CON LA O. Concha de la madreperla",
+      "CON LA O. Dicho de un movimiento radical: Que propugna la ocupación de viviendas o locales deshabitados.",
+    ],
+  },
+  {
+    letter: "p",
+    answer: ["protoss", "promover", "prioridad"],
+    status: 0,
+    question: [
+      "CON LA P. Raza ancestral tecnológicamente avanzada que se caracteriza por sus grandes poderes psíonicos del videojuego StarCraft",
+      "CON LA P.  Iniciar o impulsar una idea o proyecto procurando su logro",
+      "CON LA P. Anterioridad de algo respecto de otra cosa en tiempo o en orden",
+    ],
+  },
+  {
+    letter: "q",
+    answer: ["queso", "quorum", "quiste"],
+    status: 0,
+    question: [
+      "CON LA Q. Producto obtenido por la maduración de la cuajada de la leche",
+      "CON LA Q. Proporción de votos favorables para que haya acuerdo",
+      "CON LA Q. Vejiga membranosa que se desarrolla anormalmente en diferentes regiones del cuerpo y que contiene líquido o materias alteradas.",
+    ],
+  },
+  {
+    letter: "r",
+    answer: ["raton", "reciclar", "reikiavik"],
+    status: 0,
+    question: [
+      "CON LA R. Roedor",
+      " CON LA R. Someter material usado a un proceso para que se pueda volver a utilizar",
+      "CON LA R. Es la capital y ciudad más poblada de Islandia.",
+    ],
+  },
+  {
+    letter: "s",
+    answer: ["stackoverflow", "samba", "suprimir"],
+    status: 0,
+    question: [
+      "CON LA S. Comunidad salvadora de todo desarrollador informático",
+      "CON LA S. Danza popular brasileña de influencia africana cantada de compás binario",
+      "CON LA S. Hacer cesar, hacer desaparecer, anular",
+    ],
+  },
+  {
+    letter: "t",
+    answer: ["terminator", "tragaperras", "test"],
+    status: 0,
+    question: [
+      "CON LA T. Película del director James Cameron que consolidó a Arnold Schwarzenegger como actor en 1984",
+      "CON LA T. Máquina de juegos de azar que funciona introduciendo monedas",
+      "CON LA T. Prueba destinada a evaluar conocimientos o aptitudes, en la cual hay que elegir la respuesta correcta entre varias opciones previamente fijadas.",
+    ],
+  },
+  {
+    letter: "u",
+    answer: ["unamuno", "urgencia", "usurpar"],
+    status: 0,
+    question: [
+      "CON LA U. Escritor y filósofo español de la generación del 98 autor del libro 'Niebla' en 1914",
+      "CON LA U.  Necesidad o falta apremiante, inmediata obligación de hacer algo",
+      "CON LA U. Atribuirse o usar un cargo o título ajenos como si fueran propios",
+    ],
+  },
+  {
+    letter: "v",
+    answer: ["vikingos", "vivienda", "vector"],
+    status: 0,
+    question: [
+      "CON LA V. Nombre dado a los miembros de los pueblos nórdicos originarios de Escandinavia, famosos por sus incursiones y pillajes en Europa",
+      "CON LA V. Lugar cerrado y cubierto construido para ser habitado por personas",
+      "CON LA V.  Agente que transporta algo de un lugar a otro",
+    ],
+  },
+  {
+    letter: "w",
+    answer: ["sandwich", "whisky", "windows"],
+    status: 0,
+    question: [
+      "CONTIENE LA W. Emparedado hecho con dos rebanadas de pan entre las cuales se coloca jamón y queso",
+      "CON LA W. Licor alcóholico que se obtiene del destilado del grano de algunas plantas",
+      "CON LA W. Un sistema operativo para computadoras",
+    ],
+  },
+  {
+    letter: "x",
+    answer: ["botox", "exaltar", "anexionar"],
+    status: 0,
+    question: [
+      "CONTIENE LA X. Toxina bacteriana utilizada en cirujía estética",
+      "CONTIENE X. Avivar o aumentar un sentimiento o pasión, realzar el mérito o las cualidades de alguien",
+      "CONTIENE X. Unir o incorporar algo, especialmente un país o una parte de su territorio, a otro",
+    ],
+  },
+  {
+    letter: "y",
+    answer: ["peyote", "cayuco", "ahuyentar"],
+    status: 0,
+    question: [
+      "CONTIENE LA Y. Pequeño cáctus conocido por sus alcaloides psicoactivos utilizado de forma ritual y medicinal  por indígenas americanos",
+      "CONTIENE Y. Embarcación india de una pieza, más pequeña que la canoa, con el fondo plano, que se gobierna con el canalete",
+      "CONTIENE Y. Alejarse huyendo",
+    ],
+  },
+  {
+    letter: "z",
+    answer: ["zen", "zar", "zafiro"],
+    status: 0,
+    question: [
+      "CON LA Z. Escuela de budismo que busca la experiencia de la sabiduría más allá del discurso racional",
+      "CON LA Z. Emperador de Rusia",
+      "CON LA Z. Mineral compuesto de óxido de aluminio, de color azul y extraordinaria dureza, que se usa para tallar diamantes; es una variedad del corindón.",
+    ],
+  },
+];
 
-var questions = [
-    { letter: "a", status: 0, answers: [{ answ: "arpia", quest: "CON LA A. Mujer malvada" }, { answ: "acueducto", quest: "CON LA A. Conducto de agua formado por canales y caños subterráneos, o por arcos levantados" }, { answ: "atona", quest: "CON LA A. Oveja que cría un cordero de otra madre" }] },
-    { letter: "b", status: 0, answers: [{ answ: "broza", quest: "CON LA B. Conjunto de hojas, ramas, cortezas y otros despojos de las plantas" }, { answ: "birmano", quest: "CON LA B. Natural de Birmania, país de Asia" }, { answ: "buhardilla", quest: "CON LA B. Parte de un edificio situada inmediatamente debajo del tejado, con techo en pendiente y destinada a vivienda" }] },
-    { letter: "c", status: 0, answers: [{ answ: "cementerio", quest: "CON LA C. Terreno, generalmente cercado, destinado a enterrar cadáveres" }, { answ: "cierto", quest: "CON LA C. Conocido como verdadero, seguro, indubitable" }, { answ: "comedia", quest: "CON LA C. Pieza teatral en cuya acción suelen predominar los aspectos placenteros, festivos o humorísticos, con desenlace casi siempre feliz" }] },
-    { letter: "d", status: 0, answers: [{ answ: "duro", quest: "CON LA D. Moneda de cinco pesetas" }, { answ: "dardo", quest: "CON LA D. Arma arrojadiza, semejante a una lanza pequeña y delgada, que se tira con la mano" }, { answ: "diligencia", quest: "CON LA D. Coche grande, dividido en dos o tres departamentos, arrastrado por caballerías y destinado al transporte de viajeros" }] },
-    { letter: "e", status: 0, answers: [{ answ: "elocuencia", quest: "CON LA E. Facultad de hablar o escribir de modo eficaz para deleitar, conmover o persuadir" }, { answ: "epitafio", quest: "CON LA E. Inscripción que se pone, o se supone puesta, sobre un sepulcro o en la lápida o lámina colocada junto al enterramiento" }, { answ: "etanol", quest: "CON LA E. Alcohol etílico" }] },
-    { letter: "f", status: 0, answers: [{ answ: "fraternal", quest: "CON LA F. Propio de hermanos" }, { answ: "follaje", quest: "CON LA F. Conjunto de hojas de los árboles y de otras plantas" }, { answ: "fritura", quest: "CON LA F. Conjunto de cosas fritas" }] },
-    { letter: "g", status: 0, answers: [{ answ: "gibado", quest: "CON LA G. Jorobado, corcovado" }, { answ: "grumo", quest: "CON LA G. Parte de una sustancia que se coagula" }, { answ: "gorgotear", quest: "CON LA G. Dicho de un líquido o de un gas: Producir ruido al moverse en el interior de alguna cavidad" }] },
-    { letter: "h", status: 0, answers: [{ answ: "halagar", quest: "CON LA H. Dar a alguien muestras de afecto o rendimiento con palabras o acciones que puedan serle gratas" }, { answ: "heno", quest: "CON LA H. Hierba segada, seca, para alimento del ganado" }, { answ: "huella", quest: "CON LA H. Señal que deja el pie del hombre o del animal en la tierra por donde pasa" }] },
-    { letter: "i", status: 0, answers: [{ answ: "idealista", quest: "CON LA I. Que propende a representarse las cosas de una manera ideal" }, { answ: "invisible", quest: "CON LA I. Que no puede ser visto" }, { answ: "ionizar", quest: "CON LA I. Disociar una molécula en iones o convertir un átomo o molécula en ion" }] },
-    { letter: "j", status: 0, answers: [{ answ: "juliana", quest: "CON LA J. Dicho de la manera de cortar las verdudas para ensaladas o guarnición de otros alimentos: en tiras finas" }, { answ: "jabalina", quest: "CON LA J. Arma, a manera de pica o venablo, que se usaba más comúnmente en la caza mayor, y actualmente en una modalidad deportiva" }, { answ: "jinete", quest: "CON LA J. Persona diestra en la equitación" }] },
-    { letter: "k", status: 0, answers: [{ answ: "kosher", quest: "CON LA K. Dicho de un producto alimenticio, una comida, un menú, etc. Obtenido o preparado según los preceptos del judaísmo" }, { answ: "kamikaze", quest: "CON LA K. Persona que lleva a cabo un atentado suicida" }, { answ: "kilometraje", quest: "CON LA K. Acción de kilometrar" }] },
-    { letter: "l", status: 0, answers: [{ answ: "letal", quest: "CON LA L. Que ocasiona o puede ocasionar la muerte" }, { answ: "laudable", quest: "CON LA L. Digno de alabanza" }, { answ: "libremente", quest: "CON LA L. Con libertad" }] },
-    { letter: "m", status: 0, answers: [{ answ: "malabarismo", quest: "CON LA M. Arte de juegos de destreza y agilidad" }, { answ: "mermelada", quest: "CON LA M. Conserva elaborada con fruta cocida y azúcar" }, { answ: "morcal", quest: "CON LA M. Tripa gruesa para embutidos" }] },
-    { letter: "n", status: 0, answers: [{ answ: "nimiedad", quest: "CON LA N. Pequeñez, insignificancia" }, { answ: "nada", quest: "CON LA N. Inexistencia total o carencia absoluta de todo ser" }, { answ: "noria", quest: "CON LA N. Máquina compuesta de dos grandes ruedas engranadas que, mediante cangilones, sube el agua de los pozos, acequias" }] },
-    { letter: "o", status: 0, answers: [{ answ: "osamenta", quest: "CON LA O. Esqueleto del ser humano y de los animales" }, { answ: "oliente", quest: "CON LA O. Que huele o exhala olor" }, { answ: "otoba", quest: "CON LA O. Árbol de la América tropical, semejante a la mirística, y cuyo fruto es muy parecido a la nuez moscada" }] },
-    { letter: "p", status: 0, answers: [{ answ: "pronunciamiento", quest: "CON LA P. Alzamiento militar contra el Gobierno, promovido por un jefe del Ejército u otro caudillo" }, { answ: "pescado", quest: "CON LA P. Pez comestible sacado del agua por cualquiera de los procedimientos de pesca" }, { answ: "popular", quest: "CON LA P. Perteneciente o relativo al pueblo" }] },
-    { letter: "q", status: 0, answers: [{ answ: "quesadilla", quest: "CON LA Q. Tortilla de maíz o de trigo doblada por la mitad, rellena de queso y a veces de otros ingredientes, propia de la cocina mexicana" }, { answ: "quad", quest: "CON LA Q. Vehículo todoterreno de cuatro ruedas similar a una motocicleta" }, { answ: "quebradizo", quest: "CON LA Q. Fácil de quebrarse" }] },
-    { letter: "r", status: 0, answers: [{ answ: "ruleta", quest: "CON LA R. Rueda giratoria utilizada en juegos de azar" }, { answ: "ritmo", quest: "CON LA R. Orden acompasado en la sucesión o acaecimiento de las cosas" }, { answ: "resolver", quest: "CON LA R. Solucionar un problema, una duda, una dificultad o algo que los entraña" }] },
-    { letter: "s", status: 0, answers: [{ answ: "suero", quest: "CON LA S. Parte de la sangre o de la linfa que permanece líquida después de haberse producido la coagulación" }, { answ: "silbido", quest: "CON LA S. Acción y efecto de silbar" }, { answ: "sorber", quest: "CON LA R. Beber aspirando" }] },
-    { letter: "t", status: 0, answers: [{ answ: "toldo", quest: "CON LA T. Pabellón o cubierta de tela que se tiende para hacer sombra" }, { answ: "tarabilla", quest: "CON LA T. Zoquete pequeño de madera que sirve para cerrar puertas y ventanas" }, { answ: "termita", quest: "CON LA T. Insecto del orden de los isópteros, que vive en colonias y que roe madera, de la que se alimenta, por lo que puede ser peligroso para ciertas construcciones" }] },
-    { letter: "u", status: 0, answers: [{ answ: "usanza", quest: "CON LA U. Ejercicio o práctica de algo" }, { answ: "ubicar", quest: "CON LA U. Situar o instalar en determinado espacio o lugar" }, { answ: "ungir", quest: "CON LA U. Aplicar a alguien o algo aceite u otra materia pingüe, extendiéndola superficialmente" }] },
-    { letter: "v", status: 0, answers: [{ answ: "vigente", quest: "CON LA V. Que está en vigor y observancia" }, { answ: "varadero", quest: "CON LA V. Lugar donde varan las embarcaciones para resguardarlas o para limpiar sus fondos o repararlas" }, { answ: "voraz", quest: "CON LA V. Dicho de un animal: Muy comedor" }] },
-    { letter: "w", status: 0, answers: [{ answ: "washington", quest: "CON LA W. Capital de Estados Unidos" }, { answ: "windsurf", quest: "CON LA W. Deporte que consiste en deslizarse por el agua sobre una tabla especial provista de una vela." }, { answ: "whisky", quest: "CON LA W. Licor alcohólico que se obtiene del grano de algunas plantas, destilando un compuesto amiláceo en estado de fermentación" }] },
-    { letter: "x", status: 0, answers: [{ answ: "extender", quest: "CONTIENE LA X. Hacer que algo, aumentando su superficie, ocupe más lugar o espacio que el que antes ocupaba" }, { answ: "xenofobia", quest: "CON LA X. Fobia a los extranjeros" }, { answ: "taxi", quest: "CONTIENE LA X. Automóvil de alquiler con conductor, generalmente provisto de taxímetro" }] },
-    { letter: "y", status: 0, answers: [{ answ: "poyo", quest: "CONTIENE LA Y. Banco de piedra u otra materia arrimado a las paredes, ordinariamente a la puerta de las casas de zonas rurales" }, { answ: "yuan", quest: "CON LA Y. Unidad monetaria de China" }, { answ: "yegua", quest: "CON LA Y. Hembra del caballo" }] },
-    { letter: "z", status: 0, answers: [{ answ: "zurcir", quest: "CON LA Z. Coser la rotura de una tela, juntando los pedazos con puntadas o pasos ordenados, de modo que la unión resulte disimulada" }, { answ: "zaragalla", quest: "CON LA Z. Carbón vegetal menudo" }, { answ: "zombi", quest: "CON LA Z. Persona que se supone muerta y reanimada por arte de brujería con el fin de dominar su voluntad" }] }
-]
+let randomQuestion;
+let rightAnswer = 0;
+let wrongAnswer = 0;
+let playerName;
+let players = [
+  { name: "Jan", correctAnswers: 13, wrongAnswers: 14 },
+  { name: "Ana", correctAnswers: 20, wrongAnswers: 7 },
+  { name: "Maria", correctAnswers: 10, wrongAnswers: 17 },
+];
 
-var right_Q = [];
-var wrong_Q = [];
+askName();
+instructions();
 
-//  SETUP PARA ELEGIR UNA PALABRA ENTRE TRES PARA CADA UNA DE LAS LETRAS:
-for (i = 0; i < questions.length; i++) {
-    var x = Math.floor(Math.random() * (questions[i].answers.length - 1));
-    questions[i].answer = questions[i].answers[x].answ;
-    questions[i].question = questions[i].answers[x].quest;
+function pasapalabra() {
+  getRandomQuestion();
+  playGame();
+  checkResults();
 }
 
-do {
-    var userName = prompt("Introduzca su nombre, por favor:");
-    if (isFinite(userName) || userName === null) {
-        var notValidInput = window.confirm("El formato de entrada no es váldo. Inténtalo de nuevo.");
-        if (notValidInput === false) {
-            var exit = confirm("¿Quieres salir del juego?");
-            if (exit === true) {
-                throw new Error("El juego se ha terminado.")
-            }
-        }
-    }
-} while (isFinite(userName) || userName === null);
-
-console.log(`Bienvenido ${userName} al juego de PASAPALABRA! Donde si aciertas todas las preguntas del rosco, puedes ganar mucho dinero! \nEmpecemos!`);
-
-function newTurn() {
-    for (i = 0; i < questions.length; i++) {
-        if (questions[i].status === 0) {
-            console.log(questions[i].question);
-            do {
-                var inputByUser = prompt("Respuesta:");
-            } while (isFinite(inputByUser) || inputByUser === null);
-
-            var transformToLowerCase = inputByUser.toLowerCase();
-
-            switch (transformToLowerCase) {
-                case questions[i].answer:
-                    right_Q.push(questions[i].answer);
-                    questions[i].status = 1;
-                    alert("CORRECTO!");
-                    questions.splice(0, 1);
-                    break;
-                case "pasapalabra":
-                    continue;
-                case "end":
-                    console.log(`Sentimos que tengas que marcharte ${userName}. Has acertado ${right_Q.length} palabras! \nGracias por jugar con nosotros y esperamos volver a verte pronto!`);
-                    throw new Error("El juego se ha terminado.")
-                default:
-                    wrong_Q.push(questions[i].answer);
-                    questions[i].status = 1;
-                    alert(`NOOO, has fallado! La palabra correcta era ${questions[i].answer}`)
-                    questions.splice(0, 1);
-                    break;
-            }
-        } else if (questions[i].status === 1) continue;
-
-        // **DESCOMENTAR PARA VER EVOLUCION PALABRAS ACERTADAS/INCORRECTAS**
-
-        console.log("PALABRAS ACERTADAS:", right_Q);
-        console.log("PALABRAS ERRONEAS:", wrong_Q);
-
-    }
-
+function playersScores() {
+  addPLayersScores();
+  sortPLayersScore();
+  showPlayersScores();
 }
 
+function askName() {
+  playerName = prompt(`Como te llamas?`);
+  if (playerName === "" || playerName === null) {
+    alert(`Por favor introduce informacion correcta`);
+    askName();
+  }
+  return alert(`Hola ${playerName}\nBienvenido al juego Pasapalabra`);
+}
 
-do {
-    newTurn();
-} while ((right_Q.length + wrong_Q.length) < 26); // **EN LUGAR DE ARRAY Y COMPROBAR LA LONGITUD, SE PUEDE HACER UN CONTADOR DE PALABRAS Y SUMAR UNA UNIDAD EN CADA RONDA.**
+function instructions() {
+  alert(
+    `Instrucciones:\n1. Introduzca "pasapalabra" si quiere pasar a otra pregunta\n2. Introduzca "end" si quiere finalizar el juego`
+  );
+}
 
-if (right_Q.length === 26) {
-    console.log(`Enhorabuena ${userName}, has conseguido responder correctamente a todas las preguntas!`);
-} else {
-    console.log(`Lo sentimos pero no has conseguido llevarte el bote. Tu resumen de la partida es el siguiente: \n> PALABRAS ACERTADAS: ${right_Q.length} \n> PALABRAS ERRONEAS: ${wrong_Q.length}`);
+function getRandomQuestion() {
+  randomQuestion = Math.floor(Math.random() * 3);
+  return randomQuestion;
+}
+
+function playGame() {
+  for (let i = 0; i < questions.length; i++) {
+    if (questions[i].status === 0) {
+      let randomNumberQuestion = getRandomQuestion();
+      console.log(
+        `La siguente pregunta es: ${questions[i].question[randomNumberQuestion]}`
+      );
+      answer = prompt(`Por favor, escribe la respuesta`);
+      if (answer === questions[i].answer[randomNumberQuestion]) {
+        console.log("Correcto!");
+        rightAnswer += 1;
+        questions[i].status = 1;
+      }
+      if (answer === "pasapalabra") {
+        console.log(`Pasamos a la siguente pregunta`);
+      }
+      if (answer === "end" || answer === null || answer === "") {
+        endOfGame();
+        return;
+      }
+      if (
+        answer !== questions[i].answer[randomNumberQuestion] &&
+        answer !== "pasapalabra"
+      ) {
+        console.log(`Incorrecto`);
+        wrongAnswer += 1;
+        questions[i].status = 0;
+      }
+    }
+  }
+  return playGame;
+}
+
+function checkResults() {
+  if (rightAnswer === 27)
+    console.log(`Felicidades! Has acertado todas las palabras!`);
+}
+
+function askNewGame() {
+  let nextGame = confirm(`Quieres jugar de nuevo?`);
+  if (nextGame) {
+    rightAnswer = 0;
+    wrongAnswer = 0;
+    instructions();
+    askName();
+    pasapalabra();
+  }
+  return;
+}
+
+function endOfGame() {
+  console.log(`Gracias por jugar Pasapalabra`);
+  console.log(
+    `Respuestas correctas: ${rightAnswer}\nReespuestas incorrectas: ${wrongAnswer}`
+  );
+}
+
+function addPLayersScores() {
+  players.push({
+    name: playerName,
+    correctAnswers: rightAnswer,
+    wrongAnswers: wrongAnswer,
+  });
+}
+
+function sortPLayersScore() {
+  players.sort(function (a, b) {
+    return b.correctAnswers - a.correctAnswers;
+  });
+}
+
+function showPlayersScores() {
+  console.log(" La puntuacion:");
+  for (let i = 0; i < players.length; i++) {
+    console.log(
+      `El jugador ${players[i].name} tiene ${players[i].correctAnswers} respuestas correctas y ${players[i].wrongAnswers} respuestas incorrectas`
+    );
+  }
+}
+
+pasapalabra();
+playersScores();
+askNewGame();
