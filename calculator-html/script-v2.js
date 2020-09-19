@@ -1,7 +1,5 @@
 'use strict'
-
 ///////////////////////////VARIABLES////////////////////////////
-
 
 const numbersButton = document.querySelectorAll("[data-numbers]");
 const operandsButton = document.querySelectorAll("[data-operand]");
@@ -17,32 +15,37 @@ let currentOperand = null;
 ///////////////////////////FUNCTIONS////////////////////////////
 
 function allClear() {
-    
+    previousNumber = "";
+    currentNumber = "";
+    currentOperand = null;
 }
 
 function eraseNumbers() {
-    
+    currentNumber = currentNumber.slice(0, -1)
 }
 
 function calculationNumbers() {
     let result = "";
     const currNumber = parseFloat(currentNumber);
     const prevNumber = parseFloat(previousNumber);
+    if (currentNumber != "" && previousNumber === "" && currentOperand === null) return;
+    if (currentNumber === "" && previousNumber != "" && currentOperand != null) return;
     if (currentOperand === "÷") result = prevNumber / currNumber;
     if (currentOperand === "*") result = prevNumber * currNumber;
     if (currentOperand === "+") result = prevNumber + currNumber;
     if (currentOperand === "-") result = prevNumber - currNumber;
-    updateDisplay()
+    currentNumber = result.toString()
+    previousNumber = "";
+    currentOperand = null;
 }
 
 function operatorSelected(operator) {
     if (currentNumber === "") return
+    if (currentNumber === "" && currentOperand != null) return currentOperand = operator
+    if (previousNumber != "" && currentNumber != "" && currentOperand != null) calculationNumbers();
     currentOperand = operator;
-    if (previousNumber != "" && currentNumber != "" && currentOperand != null) calculationNumbers()
     previousNumber = currentNumber;
     currentNumber = ""
-
-    updateDisplay()
 }
 
 function appendingNumbers(number) {
@@ -70,6 +73,7 @@ function processingNumbers(number) {
 function updateDisplay() {
     currentValueOnDisplay.innerText = processingNumbers(currentNumber);
     if (currentOperand != null) previousValueOnDisplay.innerText = `${processingNumbers(previousNumber)} ${currentOperand}`;
+    else previousValueOnDisplay.innerText = "";
 }
 
 ///////////////////////////EVENTS////////////////////////////
@@ -84,13 +88,21 @@ numbersButton.forEach(button => {
 operandsButton.forEach(button => {
     button.addEventListener("click", function (operator) {
         operatorSelected(operator.target.innerText)
+        updateDisplay()
     })
 })
 
 clearAllButton.addEventListener("click", () => {
     allClear()
+    updateDisplay()
 })
 
 eraseButton.addEventListener("click", () => {
     eraseNumbers()
+    updateDisplay();
+})
+
+resultButton.addEventListener("click", () => {
+    calculationNumbers()
+    updateDisplay()
 })
