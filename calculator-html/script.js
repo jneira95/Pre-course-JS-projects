@@ -6,16 +6,17 @@ const eraseButton = document.querySelector("[data-erase-current-value]");
 const resultButton = document.querySelector("[data-result]");
 let currentValueOnDisplay = document.querySelector("[data-current-value-display]");
 let previousValueOnDisplay = document.querySelector("[data-previous-value-display]");
+let processingNumber = "";
 let previousNumber = "";
 let currentNumber = "";
 let currentOperand = null;
 
 const allClear = () => {
+    processingNumber = "";
     previousNumber = "";
     currentNumber = "";
     currentOperand = null;
-    updatePreviousValueDisplay();
-    updateCurrentValueDisplay();
+    updateDisplay();
 }
 
 const deleteCurrentValue = () => {
@@ -23,49 +24,80 @@ const deleteCurrentValue = () => {
 }
 
 const calculation = () => {
-    if(currentNumber === "") return
-    let result = "";
-    const prevNumber = parseFloat(previousNumber);
-    const currNumber = parseFloat(currentNumber);
+
+    // if(currentNumber === "") 
+    // if (currentNumber === "") if (currentNumber === "") return;
+    // let result = "";
+    // const prevNumber = parseFloat(previousNumber);
+    // const currNumber = parseFloat(currentNumber);
+
     if (currentOperand === "÷") result = prevNumber / currNumber;
     if (currentOperand === "*") result = prevNumber * currNumber;
     if (currentOperand === "+") result = prevNumber + currNumber;
     if (currentOperand === "-") result = prevNumber - currNumber;
-    currentNumber = result;
-    updateCurrentValueDisplay();   
+    
+    
+    
+    
+    // currentNumber = result;
+    // updateCurrentValueDisplay();   
 }
 
-const updatePreviousValueDisplay = () => {
-    if (currentOperand === null) previousValueOnDisplay.innerText = previousNumber;
-    else previousValueOnDisplay.innerText = previousNumber + " " + currentOperand;
-}
+const 
 
-const updateCurrentValueDisplay = () => {
+
+const processingNumbers = (num) => {
+    processingNumber += num
+    const integerDigits = parseFloat(processingNumber.split(".")[0]);
+    const decimalDigits = processingNumber.split(".")[1]
+    let processNumber;
+    isNaN(integerDigits) ? processNumber = "" : processNumber = integerDigits.toLocaleString("en");
+    !isNaN(decimalDigits) ? currentNumber = `${processNumber}.${decimalDigits}` : currentNumber = processNumber;
+}   
+
+const updateDisplay = () => {
     currentValueOnDisplay.innerText = currentNumber;
 }
 
+// const updatePreviousValueDisplay = () => {
+//     if (currentOperand === null) previousValueOnDisplay.innerText = previousNumber;
+//     else previousValueOnDisplay.innerText = previousNumber + " " + currentOperand;
+// }
+// const updateCurrentValueDisplay = () => {
+//     currentValueOnDisplay.innerText = currentNumber;
+// }
+
 numbersButton.forEach(number => {
     number.addEventListener("click", function (x) {
-        currentNumber += x.target.textContent;
-        updateCurrentValueDisplay();
+        processingNumbers(x.target.innerText);
+        updateDisplay()
+        
+        
+        
+        // currentNumber += x.target.textContent;
+        // updateCurrentValueDisplay();
     })
 })
 
 operandsButton.forEach(operand => {
     operand.addEventListener("click", function (x) {
-        if (currentNumber === "") return;
-        if (currentNumber != "" && previousNumber != "") calculation();
-        currentOperand = x.target.textContent;
-        previousNumber = currentNumber;
-        currentNumber = ""; 
-        updatePreviousValueDisplay(); 
-        updateCurrentValueDisplay();
+
+
+
+
+        // if (currentNumber === "") return;
+        // if (currentNumber != "" && previousNumber != "") calculation();
+        // currentOperand = x.target.textContent;
+        // previousNumber = currentNumber;
+        // currentNumber = ""; 
+        // updatePreviousValueDisplay(); 
+        // updateCurrentValueDisplay();
     })
 })
 
 eraseButton.addEventListener("click", () => {
-    deleteCurrentValue();
-    updateCurrentValueDisplay();
+  deleteCurrentValue();
+  updateDisplay();
 })
 
 clearAllButton.addEventListener("click", () => {
@@ -73,7 +105,11 @@ clearAllButton.addEventListener("click", () => {
 })
 
 resultButton.addEventListener("click", () => {
-    calculation();
+    
+    
+    
+    
+    // calculation();
 })
 
 
