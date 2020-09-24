@@ -1,56 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <script src="./script.js" defer></script>
     <title>PASAPALABRAS SKYLAB</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="main-container">
-        <section id="menu-section">
-            <h1>PASAPALABRA SKYLAB</h1>
-            <ul>
-                <li class="grow" value="1"><a href="#">JUGAR</a></li>
-                <li class="grow"><a href="#">¿COMO JUGAR?</a></li>
-                <li class="grow"><a href="#">RANKINGS</a></li>
+      <section id="menu-section">
+        <h1>PASAPALABRA SKYLAB</h1>
+        <ul>
+          <li class="grow" value="1"><a href="#">JUGAR</a></li>
+          <li class="grow"><a href="#">¿COMO JUGAR?</a></li>
+          <li class="grow"><a href="#">RANKINGS</a></li>
+        </ul>
+      </section>
+      <section id="play-section">
+          <p>Comienza por: <span class="letter"></span></p>
+          <p class="question"></p>
+          <div id="letter-container">
+              <ul class="circle-container">
+                <li>A</li>
+                <li>B</li>
+                <li>C</li>
+                <li>D</li>
+                <li>E</li>
+                <li>F</li>
+                <li>G</li>
+                <li>H</li>
+                <li>I</li>
+                <li>J</li>
+                <li>K</li>
+                <li>L</li>
+                <li>M</li>
+                <li>N</li>
+                <li>O</li>
+                <li>P</li>
+                <li>Q</li>
+                <li>R</li>
+                <li>S</li>
+                <li>T</li>
+                <li>U</li>
+                <li>V</li>
+                <li>W</li>
+                <li>X</li>
+                <li>Y</li>
+                <li>Y</li>
             </ul>
-        </section>
-        <section id="play-section">
-            <div>
-                <div>
-                    <span>test</span>
-                </div>
-                <p>Comienza por a: </p>
-                <input type="text" id="answer" placeholder="RESPUESTA">
-                <button>
-                    CONFIRMAR
-                </button>
-                <button>
-                    PASAPALABRA
-                </button>
-            </div>
-        </section>
-        <section id="rule-section">
-            <h2>¿Como Jugar?</h2>
-            <p>
-                Cuando comience el juego, dispondrás de 5min para acertar el máximo de palabras posibles. <br>
-                Lo primero que veras, es una de las 26 letras que tendrás que responder y una pregunta justo debajo <br>
-                de ella, deberás escribir la respuesta y dar clic en confirmar, si la respuesta es correcta, contara <br>
-                como 1 punto, de lo contrario contara como un fallo. <br>
-                En caso de no estar seguro de la palabra, puedes hacer clic sobre “PASAPALBRA” <br>
-                para probar más tarde, ¡siempre que no te quedes sin tiempo! <br>
-                Gana quien más aciertos tenga. <br>
-                Puedes finalizar el juego en cualquier momento, pero no entraras en el ranking. <br>
-                ¡Buena Suerte!
-            </p>
-        </section>
-        <section id="ranking-section">
-            <h2>RANKINGS</h2>
-
-
-        </section>
+        </div>
+        <div class="wrappInpBnt">
+            <input type="text" id="answer" placeholder="RESPUESTA" />
+            <button class="grow" type="submit">CONFIRMAR</button>
+            <button class="grow">PASAPALABRA</button>
+            <div class="timer">300</div>
+        </div>
+    </section>
+      <section id="rule-section">
+        <h2>¿Como Jugar?</h2>
+        <p>
+          Cuando comience el juego, dispondrás de 5min para acertar el máximo de
+          palabras posibles. <br />
+          Lo primero que veras, es una de las 26 letras que tendrás que
+          responder y una pregunta justo debajo <br />
+          de ella, deberás escribir la respuesta y dar clic en confirmar, si la
+          respuesta es correcta, contara <br />
+          como 1 punto, de lo contrario contara como un fallo. <br />
+          En caso de no estar seguro de la palabra, puedes hacer clic sobre
+          “PASAPALBRA” <br />
+          para probar más tarde, ¡siempre que no te quedes sin tiempo! <br />
+          Gana quien más aciertos tenga. <br />
+          Puedes finalizar el juego en cualquier momento, pero no entraras en el
+          ranking. <br />
+          ¡Buena Suerte!
+        </p>
+      </section>
+      <section id="ranking-section">
+        <h2>RANKINGS</h2>
+      </section>
     </div>
-</body>
+  </body>
 </html>
