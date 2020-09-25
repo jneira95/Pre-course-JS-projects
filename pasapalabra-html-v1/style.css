@@ -30,7 +30,6 @@ body {
 
 #menu-section h1 {
   font-size: 5rem;
-  padding: 1rem 2rem;
 }
 
 #menu-section ul li {
@@ -41,7 +40,6 @@ body {
   box-shadow: 0 0 30px 0 rgba(15, 217, 182, 0.36);
   border-radius: 30px;
   list-style: none;
-  text-align: center;
 }
 
 #menu-section ul li a {
@@ -62,7 +60,7 @@ body {
 /*////////////////////////////////////////////////////////////////////*/
 
 #play-section {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -221,6 +219,37 @@ body {
 
 #rule-section {
   display: none;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 70%;
+}
+
+#rule-section h2 {
+  font-size: 3rem;
+}
+#rule-section ul {
+  margin-left: 50px;
+  margin-top: 30px;
+}
+
+#rule-section ul li {
+  font-size: 1.4rem;
+}
+
+#rule-section p {
+  font-size: 2rem;
+  align-self: center;
+}
+
+#rule-section button {
+  color: white;
+  font-size: 1rem;
+  margin-top: 15px;
+  width: 150px;
+  height: 50px;
+  background-color: #15162c;
+  border: 2px solid #0fd9b6;
+  align-self: flex-end;
 }
 
 /*////////////////////////////////////////////////////////////////////*/
