@@ -263,19 +263,57 @@ const questionList = [
   },
 ];
 
-
-const menuSectionDisplay = document.getElementById("menu-section");
-const menuSection = document.querySelectorAll("#menu-section ul li");
+const menuSection = document.getElementById("menu-section");
+const menuSectionOption = document.querySelectorAll("#menu-section ul li");
 const playSection = document.getElementById("play-section");
 const ruleSection = document.getElementById("rule-section");
 const rankingSection = document.getElementById("ranking-section");
+const startPlaying = document.querySelector(".startBtn");
+const letters = document.querySelectorAll("[data-letter]")
+const letter = []
 
-// menuSection.forEach(button => {
-//     button.addEventListener("click", function (x) {
-//         const test = x.target.textContent
-//         if (test === "JUGAR") {
-//             menuSectionDisplay.style.display = "none"
-//             playSection.style.display = "block"
-//         }
-//     })
-// })
+menuSectionOption.forEach((button) => {
+  button.addEventListener("click", function (x) {
+    const option = x.target.textContent
+    if (option === "JUGAR") {
+      menuSection.style.display = "none";
+      startPlaying.style.display = "flex";
+    }
+    if (option === "¿COMO JUGAR?") {
+      menuSection.style.display = "none";
+      ruleSection.style.display = "flex";
+    }
+    if (option === "RANKINGS") {
+
+    }
+    })
+});
+
+startPlaying.addEventListener("click", () => {
+  startPlaying.style.display = "none";
+  document.querySelector(".playing").style.display = "flex"
+  startGame()
+  countdownTime()
+})
+
+function startGame() {
+  for (let x = 0; x < letters.length; x++) {
+    letter.push(letters[x].textContent)
+  }
+  
+
+}
+  
+function countdownTime() {
+  let secondsRemaining = document.querySelector(".countdown").textContent;
+  let countdown = setInterval(() => {
+    secondsRemaining--;
+    document.querySelector(".countdown").textContent = secondsRemaining;
+    if (secondsRemaining < 15) {
+      document.querySelector(".countdown").style.color = "red";
+    }
+    if (secondsRemaining <= 0) {
+      clearInterval(countdown);
+    }
+  }, 1000);
+}

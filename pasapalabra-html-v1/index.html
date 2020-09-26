@@ -12,49 +12,54 @@
       <section id="menu-section">
         <h1>PASAPALABRA SKYLABCODERS</h1>
         <ul>
-          <li class="grow" value="1"><a href="#">JUGAR</a></li>
-          <li class="grow"><a href="#">¿COMO JUGAR?</a></li>
-          <li class="grow"><a href="#">RANKINGS</a></li>
+          <li class="grow" <a href="#">JUGAR</a></li>
+          <li class="grow" <a href="#">¿COMO JUGAR?</a></li>
+          <li class="grow" <a href="#">RANKINGS</a></li>
         </ul>
       </section>
       <section id="play-section">
+        <button class="startBtn grow">
+          COMENZAR
+        </button>
+        <div class="playing">
           <p>Comienza por: <span class="letter"></span></p>
           <p class="question"></p>
           <div id="letter-container">
-              <ul class="circle-container">
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
-                <li>D</li>
-                <li>E</li>
-                <li>F</li>
-                <li>G</li>
-                <li>H</li>
-                <li>I</li>
-                <li>J</li>
-                <li>K</li>
-                <li>L</li>
-                <li>M</li>
-                <li>N</li>
-                <li>O</li>
-                <li>P</li>
-                <li>Q</li>
-                <li>R</li>
-                <li>S</li>
-                <li>T</li>
-                <li>U</li>
-                <li>V</li>
-                <li>W</li>
-                <li>X</li>
-                <li>Y</li>
-                <li>Y</li>
-            </ul>
-        </div>
-        <div class="wrappInpBnt">
-            <input type="text" id="answer" placeholder="RESPUESTA" />
-            <button class="grow" type="submit">CONFIRMAR</button>
-            <button class="grow">PASAPALABRA</button>
-            <div class="timer">300</div>
+                <ul class="circle-container">
+                  <li data-letter>A</li>
+                  <li data-letter>B</li>
+                  <li data-letter>C</li>
+                  <li data-letter>D</li>
+                  <li data-letter>E</li>
+                  <li data-letter>F</li>
+                  <li data-letter>G</li>
+                  <li data-letter>H</li>
+                  <li data-letter>I</li>
+                  <li data-letter>J</li>
+                  <li data-letter>K</li>
+                  <li data-letter>L</li>
+                  <li data-letter>M</li>
+                  <li data-letter>N</li>
+                  <li data-letter>O</li>
+                  <li data-letter>P</li>
+                  <li data-letter>Q</li>
+                  <li data-letter>R</li>
+                  <li data-letter>S</li>
+                  <li data-letter>T</li>
+                  <li data-letter>U</li>
+                  <li data-letter>V</li>
+                  <li data-letter>W</li>
+                  <li data-letter>X</li>
+                  <li data-letter>Y</li>
+                  <li data-letter>Z</li>
+              </ul>
+            </div>
+            <div class="wrappInpBnt">
+                <input type="text" id="answer" placeholder="RESPUESTA" />
+                <button class="grow" type="submit">CONFIRMAR</button>
+                <button class="grow">PASAPALABRA</button>
+                <span class="countdown">150</span>
+            </div>
         </div>
     </section>
       <section id="rule-section">
