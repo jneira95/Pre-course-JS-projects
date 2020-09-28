@@ -269,7 +269,8 @@ const playSection = document.getElementById("play-section");
 const ruleSection = document.getElementById("rule-section");
 const rankingSection = document.getElementById("ranking-section");
 const startPlaying = document.querySelector(".startBtn");
-const letters = document.querySelectorAll("[data-letter]")
+const letters = document.querySelectorAll("[data-letter]");
+const exitGame = document.getElementById("exit");
 const letter = []
 
 menuSectionOption.forEach((button) => {
@@ -300,7 +301,6 @@ function startGame() {
   for (let x = 0; x < letters.length; x++) {
     letter.push(letters[x].textContent)
   }
-  
 
 }
   
