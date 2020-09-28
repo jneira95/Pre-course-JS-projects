@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <title>PASAPALABRAS HTML</title>
+</head>
+<body>
+	<div id="main-container" class="flx-center">
+		<div id="menu-option">
+			<h1>PASAPALABRA SKYLABCODERS</h1>
+			<button id="start-game" class="grow btn-bg-color btn-border">
+					JUGAR
+			</button>
+			<button id="rules-display" class="grow btn-bg-color btn-border">
+					¿COMO JUGAR?
+			</button>
+		</div>
+		<div id="play-option">
+			<div id="playerInputName">
+				<label for="name">Nombre:</label>
+				<input type="text" id="userName" form="name" class="btn-border">
+				<button class="grow btn-bg-color btn-border">
+						CONFIRMAR
+				</button>
+				<button class="grow btn-bg-color btn-border">
+						SALIR
+				</button>
+			</div>
+			<div id="in-game">
+				<p>Comienza por: <span class="letter"></span></p>
+				<p class="question"></p>
+				<div id="letter-container">
+					<ul class="circle-container flx-center">
+						<li class="flx-center" data-letter>A</li>
+						<li class="flx-center" data-letter>B</li>
+						<li class="flx-center" data-letter>C</li>
+						<li class="flx-center" data-letter>D</li>
+						<li class="flx-center" data-letter>E</li>
+						<li class="flx-center" data-letter>F</li>
+						<li class="flx-center" data-letter>G</li>
+						<li class="flx-center" data-letter>H</li>
+						<li class="flx-center" data-letter>I</li>
+						<li class="flx-center" data-letter>J</li>
+						<li class="flx-center" data-letter>K</li>
+						<li class="flx-center" data-letter>L</li>
+						<li class="flx-center" data-letter>M</li>
+						<li class="flx-center" data-letter>N</li>
+						<li class="flx-center" data-letter>O</li>
+						<li class="flx-center" data-letter>P</li>
+						<li class="flx-center" data-letter>Q</li>
+						<li class="flx-center" data-letter>R</li>
+						<li class="flx-center" data-letter>S</li>
+						<li class="flx-center" data-letter>T</li>
+						<li class="flx-center" data-letter>U</li>
+						<li class="flx-center" data-letter>V</li>
+						<li class="flx-center" data-letter>W</li>
+						<li class="flx-center" data-letter>X</li>
+						<li class="flx-center" data-letter>Y</li>
+						<li class="flx-center" data-letter>Z</li>
+					</ul>
+				</div>
+				<div class="wrappInpBnt">
+					<input type="text" id="answer" placeholder="RESPUESTA" />
+					<button class="grow btn-bg-color btn-border" type="submit">CONFIRMAR</button>
+					<button class="grow btn-bg-color btn-border">PASAPALABRA</button>
+					<span class="countdown">150</span>
+				</div>
+				<button class="exit grow btn-bg-color btn-border">SALIR</button>
+			</div>
+			<!-- <div id="rules-option">
+
+			</div> -->
+	</div>
+</body>
+</html>
