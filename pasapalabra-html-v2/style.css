@@ -45,7 +45,7 @@ body {
 }
 
 #menu-option {
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
 }
@@ -301,7 +301,7 @@ body {
 /*////////////////////////////////////////////////////////*/
 
 #ranking {
-  display: flex;
+  display: none;
   flex-direction: column;
   font-size: 2rem;
   

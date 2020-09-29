@@ -290,8 +290,9 @@ const pressPasapalabra = document.getElementById("nextQuestion");
 const forceExit = document.getElementById("forceExit");
 
 const rankingDisplay = document.getElementById("ranking");
-const rankOrderLink = document.getElementById("rankList");
-const rankOrderLinkLi = document.querySelectorAll("#rankList li");
+const rankOrderList = document.getElementById("rankList");
+let rankOrderListLi = document.querySelectorAll("#rankList li");
+
 
 const gameRulesBtn = document.getElementById("rules-display");
 const gameRulesDisplay = document.getElementById("rules-option");
@@ -357,6 +358,7 @@ function displayGame() {
 
 function gameProgress() {
 	if (totalcount === 26) {
+    clearInterval(countdown);
 		finishGame = true;
     endGame();
     return;
@@ -372,9 +374,9 @@ function gameCountdown() {
       document.querySelector(".countdown").style.color = "red";
     }
     if (secondsRemaining <= 0) {
+      clearInterval(countdown);
 			finishGame = true;
 			endGame()
-      clearInterval(countdown);
     }
   }, 1000);
 }
@@ -450,38 +452,41 @@ function endGame() {
 }
 
 function showRankings() {
+  startGamePlayingDisplay.style.display = "none";
+  rankingDisplay.style.display = "flex";
   updateRanking();
   updateListOfRanking();
-  startGamePlayingDisplay.style.display = "none";
-  
-  // let newRankingList = ranking.map(function (arr) {
-  //   let userStatus = `Jugador: ${arr.name} - Puntos: ${arr.points}`;
-  //   li.textContent = userStatus;
-  //   return li;
-  // });
-  // rankOrderLink.append(...newRankingList);
-  // setTimeout(() => {
-  //   rankingDisplay.style.display = "none";
-  //   menuOptionDisplay.style.display = "flex";
-  // }, 10000);
+  updateRankingData();
+  setTimeout(() => {
+    rankingDisplay.style.display = "none";
+    menuOptionDisplay.style.display = "flex";
+  }, 10000);
 }
+
 function updateRanking() {
   ranking.push(newPlayer(newPlayerName, correct));
   ranking.sort(function (a, b) {
     return b.points - a.points;
   });
 }
+
 function updateListOfRanking() {
-  const li = document.createElement("li");
-  const x = rankOrderLinkLi.length
+  const x = rankOrderListLi.length
   const y = ranking.length 
   if (x < y) {
     for (let z = 0; z < (y - x); z++) {
-      console.log(y-x);
+      const li = document.createElement("li");
+      rankOrderList.appendChild(li);
     }
   }
+  rankOrderListLi = document.querySelectorAll("#rankList li");
 }
-updateListOfRanking();
+
+function updateRankingData() {
+  for (let x = 0; x < rankOrderListLi.length; x++) {
+    rankOrderListLi[x].textContent = `Jugador: ${ranking[x].name} - Puntos: ${ranking[x].points}`;
+  }
+}
 /*////////////////////////////EVENT BUTTON & KEYS////////////////////////////*/
 
 startGameBtn.addEventListener("click", () => {
