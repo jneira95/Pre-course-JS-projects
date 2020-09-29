@@ -329,7 +329,7 @@ function checkUserName() {
 function resetAll() {
   clearInterval(countdown);
   document.querySelector(".countdown").style.color = "white";
-  secondsRemaining = document.querySelector(".countdown").textContent = "20";
+  secondsRemaining = document.querySelector(".countdown").textContent = "150";
 	questionsToAsk = Math.floor(Math.random() * 3);
   correct = 0;
   questCount = 0;
