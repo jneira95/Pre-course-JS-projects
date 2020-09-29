@@ -263,6 +263,13 @@ const questionList = [
   },
 ];
 
+let ranking = [
+	{name: "AmongUs", points: 19},
+	{name: "RainBowCow", points: 9},
+	{name: "MetalBunny", points: 13},
+	{name: "Goblin", points: 5},
+]
+
 /*////////////////////////////////////////////////////////*/
 
 const menuOptionDisplay = document.getElementById("menu-option");
@@ -280,19 +287,32 @@ const actualQuestion = document.getElementById("question");
 const actualAnswer = document.getElementById("answer");
 const answerCheck = document.getElementById("confirmAnswer");
 const pressPasapalabra = document.getElementById("nextQuestion");
+const forceExit = document.getElementById("forceExit");
+
+const rankingDisplay = document.getElementById("ranking");
+const rankOrderLink = document.getElementById("rankList");
+const rankOrderLinkLi = document.querySelectorAll("#rankList li");
 
 const gameRulesBtn = document.getElementById("rules-display");
 const gameRulesDisplay = document.getElementById("rules-option");
 const backMenu = document.querySelectorAll("[data-back-to-menu]");
 
 let questionsToAsk, correct, questCount, totalcount, finishGame;
+let countdown;
 let newPlayerName = "";
 let secondsRemaining = document.querySelector(".countdown").textContent;
 
 /*////////////////////////////USER NAME INPUT////////////////////////////*/
+function newPlayer(userName, points) {
+	return  {
+		name: userName,
+		points: points
+	}
+}
 
 function checkUserName() {
-  newPlayerName = getUserName.value;
+	newPlayerName = getUserName.value;
+	getUserName.value = ""
   if (newPlayerName === "") {
     errorMessageOnName.style.display = "block";
     startGameInputNameDisplay.style.display = "none";
@@ -305,16 +325,27 @@ function checkUserName() {
   }
 }
 
-function newGame() {
-  questionsToAsk = Math.floor(Math.random() * 3);
+function resetAll() {
+  clearInterval(countdown);
+  document.querySelector(".countdown").style.color = "white";
+  secondsRemaining = document.querySelector(".countdown").textContent = "20";
+	questionsToAsk = Math.floor(Math.random() * 3);
   correct = 0;
-	questCount = 0;
-	totalcount = 0;
-	finishGame = false;
+  questCount = 0;
+  totalcount = 0;
+  finishGame = false;
   for (let x = 0; x < questionList.length; x++) {
     questionList[x].status = 0;
   }
-  displayGame();
+  circleLetterList.forEach((arLetter) => {
+    arLetter.style.border = "1px solid #ffffff";
+    arLetter.style.boxShadow = "0 0 20px 0 rgba(221, 226, 225, 0.36)";
+    });
+}
+
+function newGame() {
+	resetAll();
+	displayGame();
   askQuestion();
   gameCountdown();
 }
@@ -325,8 +356,7 @@ function displayGame() {
 }
 
 function gameProgress() {
-	if (totalcount === 26 && questCount === 26) {
-		startGamePlayingDisplay.style.display = "none";
+	if (totalcount === 26) {
 		finishGame = true;
     endGame();
     return;
@@ -335,13 +365,15 @@ function gameProgress() {
 }
 
 function gameCountdown() {
-  let countdown = setInterval(() => {
+  	countdown = setInterval(() => {
     secondsRemaining--;
     document.querySelector(".countdown").textContent = secondsRemaining;
     if (secondsRemaining < 15) {
       document.querySelector(".countdown").style.color = "red";
     }
     if (secondsRemaining <= 0) {
+			finishGame = true;
+			endGame()
       clearInterval(countdown);
     }
   }, 1000);
@@ -380,7 +412,6 @@ function checkAnswer() {
 function changeCircleColor(x, currLetter) {
   switch (x) {
     case 1:
-      console.log(currLetter);
       circleLetterList.forEach((arLetter) => {
         if (arLetter.textContent === currLetter) {
           arLetter.style.border = "2px solid rgba(6, 241, 6, 0.952)";
@@ -403,14 +434,54 @@ function changeCircleColor(x, currLetter) {
 }
 
 function endGame() {
-	if (finishGame) {
-		
-	}
+	if (finishGame) showRankings();
 	if (finishGame === false) {
-		
+    startGamePlayingDisplay.style.display = "none";
+    rankingDisplay.style.display = "flex";
+    const resumeOfGame = document.getElementById("exitResume");
+    resumeOfGame.textContent = `${newPlayerName} has finalizado el juego con ${correct} aciertos.`;
+    resumeOfGame.style.fontSize = "2rem"
+		setTimeout(() => {
+			rankingDisplay.style.display = "none"
+			menuOptionDisplay.style.display = "flex"
+    }, 3000);
+    resetAll()
 	}
 }
 
+function showRankings() {
+  updateRanking();
+  updateListOfRanking();
+  startGamePlayingDisplay.style.display = "none";
+  
+  // let newRankingList = ranking.map(function (arr) {
+  //   let userStatus = `Jugador: ${arr.name} - Puntos: ${arr.points}`;
+  //   li.textContent = userStatus;
+  //   return li;
+  // });
+  // rankOrderLink.append(...newRankingList);
+  // setTimeout(() => {
+  //   rankingDisplay.style.display = "none";
+  //   menuOptionDisplay.style.display = "flex";
+  // }, 10000);
+}
+function updateRanking() {
+  ranking.push(newPlayer(newPlayerName, correct));
+  ranking.sort(function (a, b) {
+    return b.points - a.points;
+  });
+}
+function updateListOfRanking() {
+  const li = document.createElement("li");
+  const x = rankOrderLinkLi.length
+  const y = ranking.length 
+  if (x < y) {
+    for (let z = 0; z < (y - x); z++) {
+      console.log(y-x);
+    }
+  }
+}
+updateListOfRanking();
 /*////////////////////////////EVENT BUTTON & KEYS////////////////////////////*/
 
 startGameBtn.addEventListener("click", () => {
@@ -456,3 +527,7 @@ pressPasapalabra.addEventListener("click", () => {
 	gameProgress();
 	askQuestion();
 });
+
+forceExit.addEventListener("click", () => {
+	endGame()
+})

@@ -23,11 +23,10 @@
           <p>Introduce un Nombre para poder Jugar</p>
         </div>
         <div id="playerInputName">
-          <label for="name">Nombre:</label>
+          <label>Nombre:</label>
           <input
             type="text"
             id="userName"
-            form="name"
             class="btn-border"
 						placeholder="John Doe"
 						onfocus="this.value =''"
@@ -78,9 +77,9 @@
               CONFIRMAR
             </button>
             <button id="nextQuestion" class="grow btn-bg-color btn-border">PASAPALABRA</button>
-            <span class="countdown">150</span>
+            <span class="countdown"></span>
           </div>
-          <button class="exit grow btn-bg-color btn-border">SALIR</button>
+          <button id="forceExit" class="exit grow btn-bg-color btn-border">SALIR</button>
         </div>
       </div>
       <div id="rules-option">
@@ -109,7 +108,12 @@
         >
           GO BACK
         </button>
-      </div>
+			</div>
+			<div id="ranking">
+        <p id="exitResume"></p>
+        <ol id="rankList">
+        </ol>
+			</div>
     </div>
   </body>
 </html>
