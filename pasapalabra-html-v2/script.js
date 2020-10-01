@@ -263,23 +263,29 @@ const questionList = [
   },
 ];
 
+/*////////////////////////////////////////////////////////*/
+
+let questionsToAsk, correct, questCount, totalcount, finishGame;
+let countdown;
+let newPlayerName = "";
+let secondsRemaining = document.querySelector(".countdown").textContent;
 let ranking = [
-	{name: "AmongUs", points: 19},
-	{name: "RainBowCow", points: 9},
-	{name: "MetalBunny", points: 13},
-	{name: "Goblin", points: 5},
-]
+  { name: "AmongUs", points: 19 },
+  { name: "RainBowCow", points: 9 },
+  { name: "MetalBunny", points: 13 },
+  { name: "Goblin", points: 5 },
+];
 
 /*////////////////////////////////////////////////////////*/
 
 const menuOptionDisplay = document.getElementById("menu-option");
-
+/*///////////////////////////INPUT NAME///////////////////////////*/
 const startGameBtn = document.getElementById("start-game");
 const startGameInputNameDisplay = document.getElementById("playerInputName");
 const getUserName = document.getElementById("userName");
 const confirmName = document.getElementById("confirm");
 const errorMessageOnName = document.getElementById("errorMessage");
-
+/*/////////////////////////THE GAME////////////////////////////*/
 const startGamePlayingDisplay = document.getElementById("in-game");
 const circleLetterList = document.querySelectorAll("[data-letter]");
 const actualLetter = document.getElementById("letter");
@@ -288,32 +294,26 @@ const actualAnswer = document.getElementById("answer");
 const answerCheck = document.getElementById("confirmAnswer");
 const pressPasapalabra = document.getElementById("nextQuestion");
 const forceExit = document.getElementById("forceExit");
-
+/*/////////////////////////RANKS/////////////////////////////*/
 const rankingDisplay = document.getElementById("ranking");
 const rankOrderList = document.getElementById("rankList");
 let rankOrderListLi = document.querySelectorAll("#rankList li");
-
-
+/*///////////////////////////REGLAS/////////////////////////////*/
 const gameRulesBtn = document.getElementById("rules-display");
 const gameRulesDisplay = document.getElementById("rules-option");
 const backMenu = document.querySelectorAll("[data-back-to-menu]");
 
-let questionsToAsk, correct, questCount, totalcount, finishGame;
-let countdown;
-let newPlayerName = "";
-let secondsRemaining = document.querySelector(".countdown").textContent;
-
 /*////////////////////////////USER NAME INPUT////////////////////////////*/
 function newPlayer(userName, points) {
-	return  {
-		name: userName,
-		points: points
-	}
+  return {
+    name: userName,
+    points: points,
+  };
 }
 
 function checkUserName() {
-	newPlayerName = getUserName.value;
-	getUserName.value = ""
+  newPlayerName = getUserName.value;
+  getUserName.value = "";
   if (newPlayerName === "") {
     errorMessageOnName.style.display = "block";
     startGameInputNameDisplay.style.display = "none";
@@ -326,11 +326,18 @@ function checkUserName() {
   }
 }
 
+function newGame() {
+  resetAll();
+  displayGame();
+  askQuestion();
+  gameCountdown();
+}
+
 function resetAll() {
   clearInterval(countdown);
   document.querySelector(".countdown").style.color = "white";
   secondsRemaining = document.querySelector(".countdown").textContent = "150";
-	questionsToAsk = Math.floor(Math.random() * 3);
+  questionsToAsk = Math.floor(Math.random() * 3);
   correct = 0;
   questCount = 0;
   totalcount = 0;
@@ -341,14 +348,7 @@ function resetAll() {
   circleLetterList.forEach((arLetter) => {
     arLetter.style.border = "1px solid #ffffff";
     arLetter.style.boxShadow = "0 0 20px 0 rgba(221, 226, 225, 0.36)";
-    });
-}
-
-function newGame() {
-	resetAll();
-	displayGame();
-  askQuestion();
-  gameCountdown();
+  });
 }
 
 function displayGame() {
@@ -357,17 +357,17 @@ function displayGame() {
 }
 
 function gameProgress() {
-	if (totalcount === 26) {
+  if (totalcount === 26) {
     clearInterval(countdown);
-		finishGame = true;
+    finishGame = true;
     endGame();
     return;
   }
-	if (questCount === 26) questCount = 0;
+  if (questCount === 26) questCount = 0;
 }
 
 function gameCountdown() {
-  	countdown = setInterval(() => {
+  countdown = setInterval(() => {
     secondsRemaining--;
     document.querySelector(".countdown").textContent = secondsRemaining;
     if (secondsRemaining < 15) {
@@ -375,40 +375,41 @@ function gameCountdown() {
     }
     if (secondsRemaining <= 0) {
       clearInterval(countdown);
-			finishGame = true;
-			endGame()
+      finishGame = true;
+      endGame();
     }
   }, 1000);
 }
 
 function askQuestion() {
-	if (totalcount === 26) return;
-	if (questionList[questCount].status === 0) {
-		actualLetter.innerText = questionList[questCount].letter.toUpperCase();
-  	actualQuestion.innerText = questionList[questCount].question[questionsToAsk];
-	} else {
-		questCount++;
+  if (totalcount === 26) return;
+  if (questionList[questCount].status === 0) {
+    actualLetter.innerText = questionList[questCount].letter.toUpperCase();
+    actualQuestion.innerText =
+      questionList[questCount].question[questionsToAsk];
+  } else {
+    questCount++;
     gameProgress();
     askQuestion();
-	}
+  }
 }
 
 function checkAnswer() {
-	let answNormalCase = actualAnswer.value;
-	answNormalCase = answNormalCase.toLowerCase();
+  let answNormalCase = actualAnswer.value;
+  answNormalCase = answNormalCase.toLowerCase();
   if (answNormalCase === questionList[questCount].answer[questionsToAsk]) {
     questionList[questCount].status = 1;
     changeCircleColor(1, actualLetter.textContent);
-		totalcount++;
+    totalcount++;
     questCount++;
     correct++;
   } else {
     questionList[questCount].status = 1;
-		changeCircleColor(2, actualLetter.textContent);
-		totalcount++;
+    changeCircleColor(2, actualLetter.textContent);
+    totalcount++;
     questCount++;
   }
-	actualAnswer.value = ""
+  actualAnswer.value = "";
 }
 
 function changeCircleColor(x, currLetter) {
@@ -436,19 +437,19 @@ function changeCircleColor(x, currLetter) {
 }
 
 function endGame() {
-	if (finishGame) showRankings();
-	if (finishGame === false) {
+  if (finishGame) showRankings();
+  if (finishGame === false) {
     startGamePlayingDisplay.style.display = "none";
     rankingDisplay.style.display = "flex";
     const resumeOfGame = document.getElementById("exitResume");
     resumeOfGame.textContent = `${newPlayerName} has finalizado el juego con ${correct} aciertos.`;
-    resumeOfGame.style.fontSize = "2rem"
-		setTimeout(() => {
-			rankingDisplay.style.display = "none"
-			menuOptionDisplay.style.display = "flex"
+    resumeOfGame.style.fontSize = "2rem";
+    setTimeout(() => {
+      rankingDisplay.style.display = "none";
+      menuOptionDisplay.style.display = "flex";
     }, 3000);
-    resetAll()
-	}
+    resetAll();
+  }
 }
 
 function showRankings() {
@@ -471,10 +472,10 @@ function updateRanking() {
 }
 
 function updateListOfRanking() {
-  const x = rankOrderListLi.length
-  const y = ranking.length 
+  const x = rankOrderListLi.length;
+  const y = ranking.length;
   if (x < y) {
-    for (let z = 0; z < (y - x); z++) {
+    for (let z = 0; z < y - x; z++) {
       const li = document.createElement("li");
       rankOrderList.appendChild(li);
     }
@@ -484,7 +485,9 @@ function updateListOfRanking() {
 
 function updateRankingData() {
   for (let x = 0; x < rankOrderListLi.length; x++) {
-    rankOrderListLi[x].textContent = `Jugador: ${ranking[x].name} - Puntos: ${ranking[x].points}`;
+    rankOrderListLi[
+      x
+    ].textContent = `Jugador: ${ranking[x].name} - Puntos: ${ranking[x].points}`;
   }
 }
 /*////////////////////////////EVENT BUTTON & KEYS////////////////////////////*/
@@ -516,23 +519,23 @@ confirmName.addEventListener("click", () => {
 
 answerCheck.addEventListener("click", () => {
   checkAnswer();
-	gameProgress();
+  gameProgress();
   askQuestion();
 });
 actualAnswer.addEventListener("keypress", (x) => {
   if (x.key === "Enter") {
     checkAnswer();
-		gameProgress();
+    gameProgress();
     askQuestion();
   }
 });
 
 pressPasapalabra.addEventListener("click", () => {
-	questCount++;
-	gameProgress();
-	askQuestion();
+  questCount++;
+  gameProgress();
+  askQuestion();
 });
 
 forceExit.addEventListener("click", () => {
-	endGame()
-})
+  endGame();
+});
