@@ -1,50 +1,32 @@
-'useStrict'
-// background-color: rgb(195, 19, 19);
-
+"use strict";
 const gameSetupDisplay = document.getElementById("displayGameSetup");
 const playingGameDisplay = document.getElementById("displayPlayingGame");
 
 const firstPlayerName = document.getElementById("playerOne");
-const secondPlayerName = document.getElementById("playerTwo"); 
+const secondPlayerName = document.getElementById("playerTwo");
 const startBtn = document.getElementById("startGame");
 
 const currPlayer = document.querySelectorAll("[data-curr-player]");
 
-const tableSloth = document.querySelectorAll("[data-sloth]")
-const tableRow = document.querySelector("[data-row]");
+const tableSloth = document.querySelectorAll("[data-sloth]");
+const tableRow = document.querySelectorAll("[data-row]");
 
 const exitGame = document.getElementById("exit");
 
 /*//////////////////////////////////////////////////////////////////*/
 
 const names = [firstPlayerName, secondPlayerName];
-let players = []
+const playerColor = ["rgba(211, 25, 25, 0.822)", "rgba(37, 40, 218, 0.822)"];
+let players = [];
+let currentPlayers;
+
 
 const resetGame = () => {
   startBtn.setAttribute("disabled", "");
-  names.forEach(elem => {
-    elem.value = ""
-  })
-}
-
-// class Players {
-//   constructor(first, second) {
-//     return players.push({
-//       firstPlayer: first,
-//       secondPlayer: second
-//     })
-//   }
-// }
-
-// function getPlayerNames() {
-//   names.forEach(elem => {
-//     elem.value
-//   })
-//   const x = firstPlayerName.value
-//   const y = secondPlayerName.value
-//   // if ()
-//   new Players(x, y)
-// }
+  names.forEach((elem) => {
+    elem.value = "";
+  });
+};
 
 const checkGameSetup = (event) => {
   const key = event;
@@ -60,38 +42,72 @@ const checkGameSetup = (event) => {
       startBtn.setAttribute("disabled", "");
     }
   }
-}
+};
 
 const setPlayerNames = () => {
   for (let x = 0; x < names.length; x++) {
-    currPlayer[x].textContent = names[x].value
+    currPlayer[x].textContent = names[x].value;
+    currPlayer[x].style.color = playerColor[x];
   }
-}
+  players.push([
+    { id: 1, name: names[0].value, color: playerColor[0] },
+    { id: 2, name: names[1].value, color: playerColor[1] },
+  ]);
+  currentPlayers = [players[players.length - 1]];
+};
+
+const playerTurn = () => {};
+
+const setPlayerChip = (currCell) => {
+  for (let x = 5; x >= 0; x--) {
+    if (
+      tableRow[x].cells[currCell].style.backgroundColor === "" ||
+      tableRow[x].cells[currCell].style.backgroundColor === "white"
+    ) {
+      return (tableRow[x].cells[currCell].style.backgroundColor =
+        "rgba(211, 25, 25, 0.822)");
+    }
+  }
+};
 
 /*//////////////////////////////////////////////////////////////////*/
 
-names.forEach(elem => {
+names.forEach((elem) => {
   elem.addEventListener("keyup", (event) => {
-    const key = event.key
+    const key = event.key;
     checkGameSetup(key);
-  })
+  });
 });
 
 startBtn.addEventListener("click", () => {
   gameSetupDisplay.style.display = "none";
   playingGameDisplay.style.display = "flex";
-  setPlayerNames()
-})
+  setPlayerNames();
+  playerTurn();
+});
 
 exitGame.addEventListener("click", () => {
   playingGameDisplay.style.display = "none";
-  gameSetupDisplay.style.display = "block"
+  gameSetupDisplay.style.display = "block";
   resetGame();
-})
+});
 
-tableSloth.forEach(sloth =>  {
+tableSloth.forEach((sloth) => {
   sloth.addEventListener("click", function () {
-    console.log(this.parentElement.rowIndex);
-    console.log(this.cellIndex);
-  })
-})
+    const currentRow = this.parentElement.rowIndex;
+    const currentCell = this.cellIndex;
+    setPlayerChip(currentCell);
+  });
+});
+
+// tableSloth.forEach(sloth => {
+//   sloth.addEventListener("mouseover", function () {
+//     if (this.style.backgroundColor === "" || this.style.backgroundColor === "white") {
+//       this.style.backgroundColor = "green";
+//     }
+//   });
+//   sloth.addEventListener("mouseout", function () {
+//     this.style.backgroundColor = "white"
+//     this.style.transition = "all 0.1s ease-out";
+//   })
+// })
