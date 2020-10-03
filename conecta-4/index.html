@@ -13,7 +13,7 @@
   </head>
   <body>
     <header id="fixHeader">
-      <h1 class="lttrspcng txtcntr">CONECTA 4 SKYLABCODER</h1>
+      <h1 class="lttrspcng txtcntr">CONNECT 4 SKYLABCODER</h1>
     </header>
     <section id="displayGameSetup">
       <div id="setGameSetupGrid">
@@ -27,6 +27,7 @@
 					class="defaultBorder"
           autofocus
           title="Completa ambos campos para poder jugar"
+          maxlength="10"
         />
         <label for="playerTwo" class="txtcntr">Second Player Name</label>
         <input
@@ -36,6 +37,7 @@
           placeholder="Player Name"
           class="defaultBorder"
           title="Completa ambos campos para poder jugar"
+          maxlength="10"
         />
         <button id="startGame" class="defaultBorder" disabled>Start Game</button>
       </div>
@@ -43,9 +45,9 @@
     <section id="displayPlayingGame">
       <div id="setPlayingGameGrid">
         <span data-curr-player></span>
-        <div id="leftArrow"><i class="fas fa-arrow-left"></i></div>
-        <div>TURNO</div>
-        <div id="rightArrow"><i class="fas fa-arrow-right"></i></div>
+        <div><i class="fas fa-arrow-left"></i></div>
+        <div id="pressToStart"></div>
+        <div><i class="fas fa-arrow-right"></i></div>
         <span data-curr-player></span>
         <table>
           <tr data-row>
@@ -104,7 +106,7 @@
           </tr>
         </table>
         <button id="exit" class="defaultBorder">Exit</button>
-        <button class="defaultBorder">Reset</button>
+        <button id="reset"class="defaultBorder">Reset</button>
       </div>
     </section>
   </body>

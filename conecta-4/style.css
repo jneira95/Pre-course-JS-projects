@@ -62,7 +62,7 @@ input {
 /*//////////////////////////////////////////////////////////////////*/
 
 #displayGameSetup {
-  display: none;
+  display: block;
 }
 
 #setGameSetupGrid {
@@ -117,7 +117,7 @@ input {
 /*//////////////////////////////////////////////////////////////////*/
 
 #displayPlayingGame {
-  display: block;
+  display: none;
 }
 
 #setPlayingGameGrid {
@@ -136,6 +136,9 @@ input {
 
 #setPlayingGameGrid div:nth-of-type(2) {
   grid-column: 4 / 5;
+  cursor: pointer;
+  visibility: visible;
+  overflow: hidden;
 }
 
 #setPlayingGameGrid div:nth-of-type(3) {
@@ -159,6 +162,7 @@ input {
 }
 
 #setPlayingGameGrid table td {
+  cursor: pointer;
   background-color: white;
   border-radius: 50%;
   height: 10rem;
