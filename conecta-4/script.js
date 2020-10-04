@@ -3,9 +3,10 @@ const gameSetupDisplay = document.getElementById("displayGameSetup");
 const playingGameDisplay = document.getElementById("displayPlayingGame");
 const firstPlayerName = document.getElementById("playerOne");
 const secondPlayerName = document.getElementById("playerTwo");
+const currPlayerSpan = document.querySelectorAll("[data-curr-player]");
 const startBtn = document.getElementById("startGame");
 const pressToPlay = document.getElementById("pressToStart");
-const currPlayerSpan = document.querySelectorAll("[data-curr-player]");
+const resetBtn = document.getElementById("reset");
 const tableSloth = document.querySelectorAll("[data-sloth]");
 const tableRow = document.querySelectorAll("[data-row]");
 const exitGame = document.getElementById("exit");
@@ -18,6 +19,16 @@ let gameStatus = false;
 let players = [];
 let currentPlayers;
 
+const resetActualGame = () => {
+  tableSloth.forEach((cell) => {
+    cell.style.backgroundColor = "white";
+    cell.style.border = "none";
+  });
+  pressToPlay.textContent = "Press To Start";
+  pressToPlay.style.color = "black";
+  gameStatus = false;
+};
+
 const resetGameOnExit = () => {
   startBtn.setAttribute("disabled", "");
   pressToPlay.textContent = "Press To Start";
@@ -25,8 +36,10 @@ const resetGameOnExit = () => {
   names.forEach((elem) => {
     elem.value = "";
   });
-  tableSloth.forEach((color) => {
-    color.style.backgroundColor = "white";
+  tableSloth.forEach((cell) => {
+    cell.style.backgroundColor = "white";
+    cell.style.border = "none";
+
   });
   gameStatus = false;
 };
@@ -93,12 +106,12 @@ const nextTurn = () => {
 
 const isColumnFull = (cell) => {
   if (
-    tableRow[0].cells[cell].style.backgroundColor === "rgba(211, 25, 25, 0.824)" ||
-    tableRow[0].cells[cell].style.backgroundColor === "rgba(37, 40, 218, 0.824)"
+    tableRow[0].cells[cell].style.backgroundColor === currentPlayers[0].color ||
+    tableRow[0].cells[cell].style.backgroundColor === currentPlayers[1].color
   ) {
-    return false
+    return false;
   }
-  return true
+  return true;
 };
 
 const setPlayerChip = (currCell, currPlayerColor) => {
@@ -108,27 +121,129 @@ const setPlayerChip = (currCell, currPlayerColor) => {
       tableRow[x].cells[currCell].style.backgroundColor === "" ||
       tableRow[x].cells[currCell].style.backgroundColor === "white"
     ) {
-      return (tableRow[x].cells[
-        currCell
-      ].style.backgroundColor = currPlayerColor);
+      tableRow[x].cells[currCell].style.backgroundColor = currPlayerColor;
+      return (
+        checkHorizontalWin(),
+        checkVerticalWin(),
+        checkDiagonalWin1(),
+        checkDiagonalWin2()
+      );
     }
   }
 };
 
+const colorMatch = (one, two, three, four) => {
+  return (
+    one === two &&
+    one === three &&
+    one === four &&
+    one !== "" &&
+    one !== "white"
+  );
+};
+
+const drawWin = (cell, cell1, cell2, cell3) => {
+  cell.style.border = "3px solid black",
+  cell1.style.border = "3px solid black",
+  cell2.style.border = "3px solid black",
+  cell3.style.border = "3px solid black";
+};
+
 const checkHorizontalWin = () => {
-  for (let x = tableRow.length - 1; x >= 0; x--) {
-    for (let y = 0; y < tableRow[x].cells.length; y++) {
-      if (condition) {
+  for (let row = 5; row > 0; row--) {
+    for (let col = 0; col < 4; col++) {
+      if (
+        colorMatch(
+          tableRow[row].cells[col].style.backgroundColor,
+          tableRow[row].cells[col + 1].style.backgroundColor,
+          tableRow[row].cells[col + 2].style.backgroundColor,
+          tableRow[row].cells[col + 3].style.backgroundColor
+        )
+      ) {
+        drawWin(
+          tableRow[row].cells[col],
+          tableRow[row].cells[col + 1],
+          tableRow[row].cells[col + 2],
+          tableRow[row].cells[col + 3]
+        );
+        return endGame();
       }
     }
   }
 };
 
-const checkVerticalWin = () => {};
+const checkVerticalWin = () => {
+  for (let col = 0; col < 7; col++) {
+    for (let row = 5; row > 2; row--) {
+      if (
+        colorMatch(
+          tableRow[row].cells[col].style.backgroundColor,
+          tableRow[row - 1].cells[col].style.backgroundColor,
+          tableRow[row - 2].cells[col].style.backgroundColor,
+          tableRow[row - 3].cells[col].style.backgroundColor
+        )
+      ) {
+        drawWin(
+          tableRow[row].cells[col],
+          tableRow[row - 1].cells[col],
+          tableRow[row - 2].cells[col],
+          tableRow[row - 3].cells[col]
+        );
+        return endGame();
+      }
+    }
+  }
+};
 
-const checkDiagonalWin1 = () => {};
+const checkDiagonalWin1 = () => {
+  for (let col = 0; col < 4; col++) {
+    for (let row = 0; row < 3; row++) {
+      if (
+        colorMatch(
+          tableRow[row].cells[col].style.backgroundColor,
+          tableRow[row + 1].cells[col + 1].style.backgroundColor,
+          tableRow[row + 2].cells[col + 2].style.backgroundColor,
+          tableRow[row + 3].cells[col + 3].style.backgroundColor
+        )
+      ) {
+        drawWin(
+          tableRow[row].cells[col],
+          tableRow[row + 1].cells[col + 1],
+          tableRow[row + 2].cells[col + 2],
+          tableRow[row + 3].cells[col + 3]
+        );
+        return endGame();
+      }
+    }
+  }
+};
 
-const checkDiagonalWin2 = () => {};
+const checkDiagonalWin2 = () => {
+  for (let col = 0; col < 4; col++) {
+    for (let row = 5; row > 2; row--) {
+      if (
+        colorMatch(
+          tableRow[row].cells[col].style.backgroundColor,
+          tableRow[row - 1].cells[col + 1].style.backgroundColor,
+          tableRow[row - 2].cells[col + 2].style.backgroundColor,
+          tableRow[row - 3].cells[col + 3].style.backgroundColor
+        )
+      ) {
+        drawWin(
+          tableRow[row].cells[col],
+          tableRow[row - 1].cells[col + 1],
+          tableRow[row - 2].cells[col + 2],
+          tableRow[row - 3].cells[col + 3]
+        );
+        return endGame();
+      }
+    }
+  }
+};
+
+const endGame = () => {
+  gameStatus = false;
+};
 
 /*//////////////////////////////////////////////////////////////////*/
 
@@ -155,7 +270,6 @@ pressToPlay.addEventListener("click", () => {
 
 tableSloth.forEach((sloth) => {
   sloth.addEventListener("click", function () {
-    // const currentRow = this.parentElement.rowIndex
     const currentCell = this.cellIndex;
     if (gameStatus === true && isColumnFull(currentCell)) {
       setPlayerChip(currentCell, playerTurn());
@@ -163,29 +277,12 @@ tableSloth.forEach((sloth) => {
   });
 });
 
+resetBtn.addEventListener("click", () => {
+  resetActualGame();
+});
+
 exitGame.addEventListener("click", () => {
   playingGameDisplay.style.display = "none";
   gameSetupDisplay.style.display = "block";
   resetGameOnExit();
 });
-
-// tableSloth.forEach((sloth) => {
-//   sloth.addEventListener("mouseover", function () {
-//     if (
-//       this.style.backgroundColor === ""
-//     ) {
-//       this.style.backgroundColor = "black";
-//     }
-//   });
-//   sloth.addEventListener("mouseout", function () {
-//     if (
-//       this.style.backgroundColor === playerColor[0] ||
-//       this.style.backgroundColor === playerColor[1]
-//     ) {
-//       return;
-//     } else {
-//       this.style.transition = "all 0.1s ease-out";
-//       this.removeAttribute("style")
-//     }
-//   });
-// });
