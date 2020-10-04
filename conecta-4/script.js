@@ -9,6 +9,7 @@ const pressToPlay = document.getElementById("pressToStart");
 const resetBtn = document.getElementById("reset");
 const tableSloth = document.querySelectorAll("[data-sloth]");
 const tableRow = document.querySelectorAll("[data-row]");
+const winnerMessage = document.getElementById("winner");
 const exitGame = document.getElementById("exit");
 
 /*//////////////////////////////////////////////////////////////////*/
@@ -27,6 +28,8 @@ const resetActualGame = () => {
   pressToPlay.textContent = "Press To Start";
   pressToPlay.style.color = "black";
   gameStatus = false;
+  winnerMessage.textContent = "";
+  winnerMessage.style.visibility = "hidden";
 };
 
 const resetGameOnExit = () => {
@@ -39,9 +42,10 @@ const resetGameOnExit = () => {
   tableSloth.forEach((cell) => {
     cell.style.backgroundColor = "white";
     cell.style.border = "none";
-
   });
   gameStatus = false;
+  winnerMessage.textContent = "";
+  winnerMessage.style.visibility = "hidden";
 };
 
 const checkGameSetup = (event) => {
@@ -115,19 +119,17 @@ const isColumnFull = (cell) => {
 };
 
 const setPlayerChip = (currCell, currPlayerColor) => {
-  nextTurn();
   for (let x = 5; x >= 0; x--) {
     if (
       tableRow[x].cells[currCell].style.backgroundColor === "" ||
       tableRow[x].cells[currCell].style.backgroundColor === "white"
     ) {
       tableRow[x].cells[currCell].style.backgroundColor = currPlayerColor;
-      return (
-        checkHorizontalWin(),
+      checkHorizontalWin(),
         checkVerticalWin(),
         checkDiagonalWin1(),
-        checkDiagonalWin2()
-      );
+        checkDiagonalWin2();
+      return;
     }
   }
 };
@@ -143,10 +145,10 @@ const colorMatch = (one, two, three, four) => {
 };
 
 const drawWin = (cell, cell1, cell2, cell3) => {
-  cell.style.border = "3px solid black",
-  cell1.style.border = "3px solid black",
-  cell2.style.border = "3px solid black",
-  cell3.style.border = "3px solid black";
+  (cell.style.border = "3px solid black"),
+    (cell1.style.border = "3px solid black"),
+    (cell2.style.border = "3px solid black"),
+    (cell3.style.border = "3px solid black");
 };
 
 const checkHorizontalWin = () => {
@@ -241,8 +243,19 @@ const checkDiagonalWin2 = () => {
   }
 };
 
+const winnerPlayer = () => {
+  for (let x = 0; x < currentPlayers.length; x++) {
+    if (currentPlayers[x].status === 1) {
+      return currentPlayers[x].name;
+    }
+  }
+};
+
 const endGame = () => {
   gameStatus = false;
+  winnerMessage.textContent = `${winnerPlayer()} Win!`;
+  winnerMessage.style.color = playerTurn();
+  winnerMessage.style.visibility = "visible";
 };
 
 /*//////////////////////////////////////////////////////////////////*/
@@ -273,6 +286,9 @@ tableSloth.forEach((sloth) => {
     const currentCell = this.cellIndex;
     if (gameStatus === true && isColumnFull(currentCell)) {
       setPlayerChip(currentCell, playerTurn());
+    }
+    if (gameStatus != false) {
+      nextTurn();
     }
   });
 });
